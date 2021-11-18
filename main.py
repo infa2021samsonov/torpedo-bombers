@@ -1,8 +1,9 @@
 import pygame
+from GamePlay.py import *
 from pygame.draw import *
 pygame.init()
 screen_type = 'menu'
-
+sea_color = (63, 145, 179)
 FPS = 30
 screen = pygame.display.set_mode((1600, 900))
 
