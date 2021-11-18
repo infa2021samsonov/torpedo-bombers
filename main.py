@@ -3,13 +3,13 @@ from gameplay import *
 from pygame.draw import *
 pygame.init()
 screen_type = 'menu'
-sea_color = (63, 145, 179)
+sea_color = (62, 145, 179)
 FPS = 30
 screen = pygame.display.set_mode((1600, 900))
 
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
-
+screen.fill(sea_color)
 pygame.display.update()
 clock = pygame.time.Clock()
 finished = False
