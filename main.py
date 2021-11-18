@@ -1,6 +1,7 @@
 import pygame
 from gameplay import *
 from pygame.draw import *
+from gameplay import *
 pygame.init()
 screen_type = 'menu'
 sea_color = (62, 145, 179)
