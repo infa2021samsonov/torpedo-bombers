@@ -16,6 +16,7 @@ TURNFORCE = [10, 20, 30]
 
 class GameShip:
     def _init_(self):
+        self.m = choice(MASS)
         self.x = 450
         self.y = 20
         self.alpha = 0
