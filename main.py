@@ -1,5 +1,5 @@
 import pygame
-from GamePlay.py import *
+from gameplay import *
 from pygame.draw import *
 pygame.init()
 screen_type = 'menu'
