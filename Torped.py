@@ -1,5 +1,5 @@
-import math
-
+from math import *
+import pygame
 
 class Torped:
 
@@ -8,13 +8,14 @@ class Torped:
         self.y = y
         self.alpha = alpha
         self.v = v
-        self.vx = v*math.sin(alpha)
-        self.vy = x*math.cos(alpha)
         self.dt = 0.1
+        image = pygame.image.load('torpedo.png').convert_alpha()
+        new_image_0 = pygame.transform.scale(image, (image.get_width() * 0.2, image.get_height() * 0.2))
+        self.new_image = pygame.transform.rotate(new_image_0, (alpha - pi / 2) * 360 * (2 * pi)**-1)
 
     def moveTorped(self):
-        self.x += self.vx * self.dt
-        self.y += self.vy * self.dt
+        self.x += self.v * sin(self.alpha) * self.dt
+        self.y += self.v * cos(self.alpha) * self.dt
         pass
 
     def Hit(self):

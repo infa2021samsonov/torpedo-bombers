@@ -1,5 +1,5 @@
 from Torped import *
-
+import pygame
 
 class Gameplay:
     def __init__(self):
@@ -9,9 +9,10 @@ class Gameplay:
         pass
 
     def drawInfo(self):
+
         pass
 
-    def drawTime(self):
+    def drawTime(self, screen):
         pass
 
     def drawTorpeds(self,screen):
@@ -22,8 +23,6 @@ class Gameplay:
                     i.detonation()
                     self.torpeds.remove(i)
                 else:
-                    screen.draw
+                    screen.blit(i.new_image, (i.x, i.y))
             else:
                 self.torpeds.remove(i)
-
-        pass
