@@ -26,4 +26,6 @@ class GameShip:
         self.F = choice(FORCE)
         self.TF = choice(TURNFORCE)
 
+    def
+
 
