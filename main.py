@@ -1,6 +1,6 @@
 import pygame
 from gameplay import *
-from pygame.draw import *
+from pygame.gfxdraw import *
 from gameplay import *
 pygame.init()
 screen_type = 'menu'

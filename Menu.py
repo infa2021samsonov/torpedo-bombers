@@ -31,7 +31,7 @@ pos_green = (width - 180, 40)
 
 class buttons:
     def __init__(self):
-        self.finished = False
+        self.finished = finished
 
 
     def stop_execution(self):
@@ -40,22 +40,14 @@ class buttons:
     def start_execution(self):
         pass
 
-    def init_ui(screen):
+    def init_ui(self):
 
-
-        button_stop = thorpy.make_button("Quit", func = buttons.stop_execution)
+        button_quit = thorpy.make_button("Quit", func = thorpy.functions.quit_func)
         button_play = thorpy.make_button("Play", func = buttons.start_execution)
-        timer = thorpy.OneLineText("Seconds passed")
 
-        box = thorpy.Box(elements=[button_play, button_stop])
-        reaction1 = thorpy.Reaction(reacts_to=thorpy.constants.THORPY_EVENT,
-                                event_args={"id": thorpy.constants.EVENT_SLIDE},
-                                params={},)
-        box.add_reaction(reaction1)
 
-        menu = thorpy.Menu(box)
-        for element in menu.get_population():
-            element.surface = screen
+        box = thorpy.Box(elements=[button_play, button_quit])
+        reaction1 = thorpy.Reaction
 
 class Work_Field:
     def __init__(self, surface, pos, pre_text, color):
@@ -68,7 +60,7 @@ class Work_Field:
     def write(self):
         '''
         Функция выводит надпись.
-        :param num: в.
+
         :return:
         '''
         text = self.my_font.render(self.pre_text, 2, self.color)
@@ -80,7 +72,7 @@ pygame.init()
 screen = pygame.display.set_mode((width, height))
 
 
-finished = False
+
 clock = pygame.time.Clock()
 rect = ()
 player_1 = Work_Field(screen, pos_red, "RED", RED)
