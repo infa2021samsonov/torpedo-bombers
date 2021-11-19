@@ -34,7 +34,7 @@ while not finished:
                 # Код Сома для отрисовки геймплея
                 print('gameplay')
 
-            # код вовы для проверки - можно стирать
+            # код Вовы для проверки - можно стирать
             pressed_keys = pygame.key.get_pressed()
             if pressed_keys[pygame.K_w]:
                 print("ffw")
