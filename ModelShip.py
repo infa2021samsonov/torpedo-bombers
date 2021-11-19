@@ -13,7 +13,7 @@ GREEN = 0x00FF00
 COLOR = [RED, GREEN]
 FORCE = [100, 200, 300]
 TURNFORCE = [10, 20, 30]
-
+MASS = [1000, 2000, 3000]
 
 class GameShip:
     def _init_(self):
