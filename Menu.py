@@ -19,7 +19,7 @@ GOLD = (212, 175, 55)
 
 
 class buttons:
-    def __init__(self):
+    def __init__(self, finished):
         self.finished = finished
 
 
@@ -57,28 +57,3 @@ class Work_Field:
 
 
 
-pygame.init()
-screen = pygame.display.set_mode((width, height))
-
-
-
-clock = pygame.time.Clock()
-rect = ()
-player_1 = Work_Field(screen, pos_red, "RED", RED)
-player_2 = Work_Field(screen, pos_green, "GREEN", GREEN)
-
-while not finished:
-    clock.tick(FPS)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            finished = True
-            break
-
-
-    pygame.display.update()
-    screen.fill(CYAN)
-
-
-    player_1.write()
-    player_2.write()
-pygame.quit()

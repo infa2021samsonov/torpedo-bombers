@@ -22,7 +22,7 @@ class GameShip:
         self.x = 450
         self.y = 20
         self.alpha = 0
-        self.V = 0
+        self.V = 100
         self.gameXP = choice(StartXP)
         self.color = choice(COLOR)
         self.F = choice(FORCE)
@@ -31,11 +31,12 @@ class GameShip:
 
 
 
-    def MoveForward(self, m, x, y, alpha, V, gameXP, color, F, TF):
-        image = pygame.image.load('Bismark_top-removebg-preview.png').convert_alpha()
-        new_image_0 = pygame.transform.scale(image, (image.get_width() * 0.5, image.get_height() * 0.5))
-        self.new_image = pygame.transform.rotate(new_image_0, (alpha + pi / 2) * 360 * (2 * pi) ** -1)
-        self.x += (self.F / self.b - (self.F / self.b - self.V * sin(self.alpha)) * exp((-self.b / self.m) * 0.5)) * self.dt
+    def MoveForward(self,alpha, screen):
+        image_1 = pygame.image.load('/torpedo-bombers/Bismark_top-removebg-preview.png')
+        new_image_0 = pygame.transform.scale(image_1, (int(image_1.get_width() * 0.5), int(image_1.get_height() * 0.5)))
+        self.new_image = pygame.transform.rotate(new_image_0, (alpha + math.pi / 2) * 360 * (2 * math.pi) ** -1)
+        screen.blit(self.new_image, (self.x, self.y))
+        self.x += (self.F / self.b - (self.F / self.b - self.V * math.sin(self.alpha)) * math.exp((-self.b / self.m) * 0.5)) * self.dt
         pass
 
 

@@ -8,8 +8,9 @@ class Gameplay:
         self.torpeds = [Torped]
         self.time = 300
         pygame.font.init()
-        self.leftPl = pl1
-        self.rightPl = pl2
+        # Экземпляры кораблей,  свойства которых надо устанавливать при нажатии Play
+        self.leftPl: GameShip = pl1
+        self.rightPl: GameShip = pl2
         self.font1 = pygame.font.SysFont('Rockwell', 60)
         self.font2 = pygame.font.SysFont('Rockwell', 80)
 
@@ -42,7 +43,7 @@ class Gameplay:
             else:
                 self.torpeds.remove(i)
 
-
+# Класс для отрисовки в геймплее индикаторов торпедных аппаратов
 class torped_recharge_units:
 
     def __init__(self, player, x, y):
@@ -53,6 +54,7 @@ class torped_recharge_units:
         self.last_recharge_times = []
 
     def draw_n_block(self, n, screen, nowtime):
+        # не работает нифига, но это временно
         for i in range(1, self.n):
             x = self.x + (n - 1) * (self.a + self.gap)
             y = self.y
