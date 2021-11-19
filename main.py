@@ -3,6 +3,8 @@ from gameplay import *
 from pygame.gfxdraw import *
 import Menu
 from gameplay import *
+from ModelShip import *
+
 
 pygame.init()
 screen_type = 'menu'
@@ -29,7 +31,7 @@ while not finished:
                 print("Андрей")
             pressed_keys = pygame.key.get_pressed()
             if pressed_keys[pygame.K_w]:
-                ModelShip.MoveForward()
+                GameShip.MoveForward()
             if screen_type == 'gameplay':
 
                 print("Сом")
