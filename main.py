@@ -27,7 +27,9 @@ while not finished:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if screen_type == 'menu':
                 print("Андрей")
-
+            pressed_keys = pygame.key.get_pressed()
+            if pressed_keys[pygame.K_w]:
+                ModelShip.MoveForward()
             if screen_type == 'gameplay':
 
                 print("Сом")
