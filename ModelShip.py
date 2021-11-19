@@ -14,6 +14,7 @@ COLOR = [RED, GREEN]
 FORCE = [100, 200, 300]
 TURNFORCE = [10, 20, 30]
 
+
 class GameShip:
     def _init_(self):
         self.m = choice(MASS)
