@@ -27,7 +27,7 @@ class GameShip:
         self.F = choice(FORCE)
         self.TF = choice(TURNFORCE)
         self.dt = 0.1
-        image = pygame.image.load('Bismark_side-removebg-preview.png').convert_alpha()
+        image = pygame.image.load('Bismark_top-removebg-preview.png').convert_alpha()
         new_image_0 = pygame.transform.scale(image, (image.get_width() * 0.5, image.get_height() * 0.5))
         self.new_image = pygame.transform.rotate(new_image_0, (alpha + pi/2) * 360 * (2 * pi) ** -1)
 
