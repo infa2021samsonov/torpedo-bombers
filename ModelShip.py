@@ -16,8 +16,9 @@ TURNFORCE = [10, 20, 30]
 MASS = [1000, 2000, 3000]
 
 class GameShip:
-    def __init__(self, m, x, y, alpha, V, gameXP, color, F, TF, dt):
+    def __init__(self, m, b, x, y, alpha, V, gameXP, color, F, TF, dt):
         self.m = choice(MASS)
+        self.b = 0.01
         self.x = 450
         self.y = 20
         self.alpha = 0
