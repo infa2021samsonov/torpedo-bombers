@@ -1,12 +1,15 @@
 from Torped import *
 import pygame
-
+from ModelShip import *
+from pygame.gfxdraw import *
 
 class Gameplay:
-    def __init__(self):
+    def __init__(self, pl1, pl2):
         self.torpeds = [Torped]
         self.time = 300
         pygame.font.init()
+        self.leftPl = pl1
+        self.rightPl = pl2
         self.font1 = pygame.font.SysFont('Rockwell', 60)
         self.font2 = pygame.font.SysFont('Rockwell', 80)
 
@@ -42,17 +45,28 @@ class Gameplay:
 
 class torped_recharge_units:
 
-    def __init__(self, n,x,y,t):
+    def __init__(self, n, x, y, t):
         self.n = n
         self.x = x
         self.y = y
         self.a = 30
         self.time_recharge = t
         self.gap = 20
+        self.last_recharge_times = []
 
-    def draw_one_block(self, n, screen):
-        x = self.x + (n - 1) * (self.a + self.g)
-        y = self.y
+    def draw_n_block(self, n, screen, nowtime):
+        for i in range(1, self.n):
+            x = self.x + (n - 1) * (self.a + self.gap)
+            y = self.y
+            rectangle(screen, (x, y, x + self.a, y + self.a), (160, 160, 160))
+            if (nowtime - self.last_recharge_time) >= self.time_recharge:
+                rectangle(screen, (x, y, x + self.a, y + self.a), (255, 255, 255))
+            else:
+                k = (nowtime - self.last_recharge_time) / self.time_recharge
+                height = k * self.a
+                rectangle(screen, (x, y + (self.a - height), x + self.a , y + self.a), (255, 255, 255))
+
+
 
 
 

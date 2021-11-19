@@ -13,11 +13,11 @@ GREEN = 0x00FF00
 COLOR = [RED, GREEN]
 FORCE = [100, 200, 300]
 TURNFORCE = [10, 20, 30]
-MASS = [1000, 2000, 3000]
+
 
 class GameShip:
     def _init_(self):
-        self.m = choice(MASS)
+        #self.m = choice(MASS)
         self.x = 450
         self.y = 20
         self.alpha = 0
@@ -27,6 +27,5 @@ class GameShip:
         self.F = choice(FORCE)
         self.TF = choice(TURNFORCE)
 
-    def
 
 
