@@ -33,7 +33,12 @@ class GameShip:
 
 
 
-    def Move(self, m, x, y, alpha, V, gameXP, color, F, TF):
+    def MoveForward(self, m, x, y, alpha, V, gameXP, color, F, TF):
         self.x += (F / b - (F / b - self.V * sin(self.alpha)) * exp((-b / m) * (t - t0))) * self.dt
-        self.y += (self.V * cos(self.alpha)  - (TF / m) * (t - t0)) * self.dt
         pass
+
+
+
+
+
+
