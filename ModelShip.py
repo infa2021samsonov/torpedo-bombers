@@ -28,14 +28,14 @@ class GameShip:
         self.F = choice(FORCE)
         self.TF = choice(TURNFORCE)
         self.dt = 0.1
-        image = pygame.image.load('Bismark_top-removebg-preview.png').convert_alpha()
-        new_image_0 = pygame.transform.scale(image, (image.get_width() * 0.5, image.get_height() * 0.5))
-        self.new_image = pygame.transform.rotate(new_image_0, (alpha + pi/2) * 360 * (2 * pi) ** -1)
 
 
 
     def MoveForward(self, m, x, y, alpha, V, gameXP, color, F, TF):
-        self.x += (F / b - (F / b - self.V * sin(self.alpha)) * exp((-b / m) * (t - t0))) * self.dt
+        image = pygame.image.load('Bismark_top-removebg-preview.png').convert_alpha()
+        new_image_0 = pygame.transform.scale(image, (image.get_width() * 0.5, image.get_height() * 0.5))
+        self.new_image = pygame.transform.rotate(new_image_0, (alpha + pi / 2) * 360 * (2 * pi) ** -1)
+        self.x += (self.F / self.b - (self.F / self.b - self.V * sin(self.alpha)) * exp((-self.b / self.m) * 0.5)) * self.dt
         pass
 
 
