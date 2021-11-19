@@ -45,12 +45,10 @@ class Gameplay:
 
 class torped_recharge_units:
 
-    def __init__(self, n, x, y, t):
-        self.n = n
+    def __init__(self, player, x, y):
         self.x = x
         self.y = y
         self.a = 30
-        self.time_recharge = t
         self.gap = 20
         self.last_recharge_times = []
 

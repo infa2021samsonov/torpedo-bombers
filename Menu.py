@@ -2,7 +2,6 @@ import pygame
 #from Ship_types import *
 import time
 import thorpy
-from colors import *
 from pygame.draw import *
 
 WHITE = (255, 255, 255)
@@ -18,16 +17,6 @@ DARKGREEN = (7, 95, 7)
 GOLD = (212, 175, 55)
 
 
-timer = None
-finished = False
-
-FPS = 30
-width = 1080
-height = 720
-
-
-pos_red = (40, 40)
-pos_green = (width - 180, 40)
 
 class buttons:
     def __init__(self):
