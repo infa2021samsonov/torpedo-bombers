@@ -11,6 +11,11 @@ screen = pygame.display.set_mode((1600, 900))
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 screen.fill(sea_color)
+#======Для тестирования===========
+game = Gameplay()
+game.drawTime(screen)
+game.drawInfo(screen)
+#=================================
 pygame.display.update()
 clock = pygame.time.Clock()
 finished = False

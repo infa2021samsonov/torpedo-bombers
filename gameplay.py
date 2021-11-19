@@ -14,9 +14,9 @@ class Gameplay:
         pass
 
     def drawInfo(self, screen):
-        red_name_lable = self.font2.render("Red", True, (204, 0, 0), None)
-        screen.blit(red_name_lable, (30,30))
-        green_name_lable = self.font2.render("Green", True, (51, 102, 0), None)
+        red_name_lable = self.font2.render("Bismark", True, (255, 255, 255), None)
+        screen.blit(red_name_lable, (30, 30))
+        green_name_lable = self.font2.render("Yowa", True, (255, 255, 255), None)
         screen.blit(green_name_lable, (1315, 30))
 
     def drawTime(self, screen):
@@ -38,3 +38,22 @@ class Gameplay:
                     screen.blit(i.new_image, (i.x, i.y))
             else:
                 self.torpeds.remove(i)
+
+
+class torped_recharge_units:
+
+    def __init__(self, n,x,y,t):
+        self.n = n
+        self.x = x
+        self.y = y
+        self.a = 30
+        self.time_recharge = t
+        self.gap = 20
+
+    def draw_one_block(self, n, screen):
+        x = self.x + (n - 1) * (self.a + self.g)
+        y = self.y
+
+
+
+
