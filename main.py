@@ -34,6 +34,8 @@ while not finished:
 
     if screen_type == 'gameplay':
         gameplay_screen.time -= 1
+        gameplay_screen.drawShips(screen)
+        gameplay_screen.drawTorpeds(screen)
         gameplay_screen.drawTime(screen)
         gameplay_screen.drawInfo(screen)
         gameplay_screen.drawTorpedIndicators(screen, gameplay_screen.leftPl, 'left')

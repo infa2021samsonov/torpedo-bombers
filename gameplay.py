@@ -70,8 +70,8 @@ class Gameplay:
                 pygame.draw.rect(screen, (255, 255, 255), (x, y, a, a))
             else:
                 k = (player.torped_tubes[i] - self.time) / player.recharge_time
-                height = k * a
-                pygame.draw.rect(screen, (255, 255, 255), (x + 3, y + (a - height) + 3, a - 6, height - 6))
+                height = k * (a-6)
+                pygame.draw.rect(screen, (255, 255, 255), (x + 3, y + ((a-6) - height) + 3, a - 6, height ))
             path = os.path.abspath(os.path.dirname(sys.argv[0]))
             image = pygame.image.load(path+'/torpedo.png').convert_alpha()
             new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.07), int(image.get_height() * 0.07)))
