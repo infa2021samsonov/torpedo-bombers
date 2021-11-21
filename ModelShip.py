@@ -16,14 +16,15 @@ TURNFORCE = [10, 20, 30]
 MASS = [1000, 2000, 3000]
 
 class GameShip:
-    def __init__(self, m, b, x, y, alpha, V, gameXP, color, F, TF, dt, quantity_of_torpeds, recharge_time):
+    def __init__(self, m, b, x, y, alpha, V, gameXP, color, F, TF, dt, quantity_of_torpeds, recharge_time, maxXP):
+        self.maxXP = maxXP
         self.m = choice(MASS)
         self.b = 0.01
         self.x = 450
         self.y = 20
         self.alpha = 0
         self.V = 100
-        self.gameXP = choice(StartXP)
+        self.gameXP = maxXP/2
         self.color = choice(COLOR)
         self.F = choice(FORCE)
         self.TF = choice(TURNFORCE)

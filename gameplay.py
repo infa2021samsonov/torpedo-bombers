@@ -73,11 +73,26 @@ class Gameplay:
                 height = k * (a-6)
                 pygame.draw.rect(screen, (255, 255, 255), (x + 3, y + ((a-6) - height) + 3, a - 6, height ))
             path = os.path.abspath(os.path.dirname(sys.argv[0]))
-            image = pygame.image.load(path+'/torpedo.png').convert_alpha()
+            image = pygame.image.load(path + '/torpedo.png').convert_alpha()
             new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.07), int(image.get_height() * 0.07)))
             new_image = pygame.transform.rotate(new_image_0, 45)
             screen.blit(new_image, (x + 0.14 * a, y + 0.12 * a))
             x = x + (a + gap)
+
+    def drawXP(self, screen, player: GameShip, left_or_right):
+        x = 0
+        y = 80
+        gap = 15
+        a = 12
+        l = 300
+        if left_or_right == 'left':
+            x = gap
+            pygame.draw.rect(screen, (160, 160, 160), (x, y, l, a))
+            pygame.draw.rect(screen, (255, 255, 255), (x, y, (player.gameXP/player.maxXP) * l, a))
+        if left_or_right == 'right':
+            x = 1600 - gap - l
+            pygame.draw.rect(screen, (160, 160, 160), (x, y, l, a))
+            pygame.draw.rect(screen, (255, 255, 255), (x + (l - (player.gameXP / player.maxXP) * l), y, (player.gameXP / player.maxXP) * l, a))
 
 
 
