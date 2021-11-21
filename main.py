@@ -19,19 +19,16 @@ clock = pygame.time.Clock()
 finished = False
 
 # Это над для создания класса геймплея - не трогать и не смотреть
-Left_player = GameShip(100,1,1,1,0,10,10, (0,0,0),10,10,0.01)
-Right_player = GameShip(100,1,1,1,0,10,10, (0,0,0),10,10,0.01)
+Left_player = GameShip(100,1,1,1,0,10,10, (0,0,0),10,10,0.01, 4, 10*60)
+Right_player = GameShip(100,1,1,1,0,10,10, (0,0,0),10,10,0.01, 4, 20*60)
 
 # создание классов игровых экранов - меню и и геймплея
 gameplay_screen = Gameplay(Left_player, Right_player)
 # Экран меню Андрея
 
 
-# это тоже код для проверки
-ship = GameShip(1000, 0.01, 450, 800, 0, 10, 100, (1, 1, 1), 100, 10, 0.1)
-
 while not finished:
-
+    # для отрисовки интерфейса
     if screen_type == 'menu':
         gameplay_screen.time = 0
 
@@ -39,11 +36,14 @@ while not finished:
         gameplay_screen.time -= 1
         gameplay_screen.drawTime(screen)
         gameplay_screen.drawInfo(screen)
+        gameplay_screen.drawTorpedIndicators(screen, gameplay_screen.leftPl, 'left')
+        gameplay_screen.drawTorpedIndicators(screen, gameplay_screen.rightPl, 'right')
 
     clock.tick(FPS)
     pygame.display.update()
     screen.fill(sea_color)
 
+    # для обработкинажатий кнопок с клавиатуры
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
@@ -71,4 +71,5 @@ while not finished:
                     """ правее gameplay_screen.righPl"""
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_j:
                     """ левее gameplay_screen.righPl"""
+
 pygame.quit()

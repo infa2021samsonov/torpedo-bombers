@@ -16,7 +16,7 @@ TURNFORCE = [10, 20, 30]
 MASS = [1000, 2000, 3000]
 
 class GameShip:
-    def __init__(self, m, b, x, y, alpha, V, gameXP, color, F, TF, dt):
+    def __init__(self, m, b, x, y, alpha, V, gameXP, color, F, TF, dt, quantity_of_torpeds, recharge_time):
         self.m = choice(MASS)
         self.b = 0.01
         self.x = 450
@@ -28,7 +28,14 @@ class GameShip:
         self.F = choice(FORCE)
         self.TF = choice(TURNFORCE)
         self.dt = 0.1
-
+        # Количество торпедных аппаратов у данного корабля и время их перезарядки
+        self.quantity_of_torpeds = quantity_of_torpeds
+        self.recharge_time = recharge_time
+        # создание массива в котором хранится время последнего заряжания этого i-го торпедного аппарата
+        self.torped_tubes = []
+        for i in range(0, self.quantity_of_torpeds):
+            self.torped_tubes.append(300*60)
+        # это сделано Сомом для отображения
 
 
     def MoveForward(self,alpha, screen):
