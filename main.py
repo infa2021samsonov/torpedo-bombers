@@ -12,7 +12,9 @@ screen_type = 'menu'
 sea_color = (62, 145, 179)
 
 FPS = 60
-screen = pygame.display.set_mode((1600, 900))
+DISPLAY_W = 1500
+DISPLAY_H = 800
+screen = pygame.display.set_mode((DISPLAY_W, DISPLAY_H))
 screen.fill(sea_color)
 pygame.display.update()
 clock = pygame.time.Clock()
@@ -31,6 +33,12 @@ while not finished:
     # для отрисовки интерфейса
     if screen_type == 'menu':
         gameplay_screen.time = 0
+        Menu.Mainmenu().blit_screen()
+        Menu.Mainmenu().display_menutext(screen)
+        Menu.Choose_Ship_pl1(screen).display_menu(screen)
+        Menu.Choose_Ship_pl2(screen).display_menu(screen)
+
+
 
     if screen_type == 'gameplay':
         gameplay_screen.time -= 1
@@ -53,8 +61,26 @@ while not finished:
             finished = True
         else:
             if screen_type == 'menu':
-                # просто код чтобы тестировать - можно стереть
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_RETURN:
+                            Menu.Mainmenu().START_KEY = True
+                        if event.key == pygame.K_BACKSPACE:
+                            Menu.Mainmenu().BACK_KEY = True
+                        if event.key == pygame.K_s:
+                            Menu.Mainmenu().DOWN_KEY1 = True
+                            Menu.Choose_Ship_pl1(screen).move_cursor()
+                        if event.key == pygame.K_k:
+                            Menu.Mainmenu().DOWN_KEY2 = True
+                            Menu.Choose_Ship_pl2(screen).move_cursor()
+                        if event.key == pygame.K_w:
+                            Menu.Mainmenu().UP_KEY1 = True
+                            Menu.Choose_Ship_pl1(screen).move_cursor()
+                        if event.key == pygame.K_i:
+                            Menu.Mainmenu().UP_KEY2 = True
+                            Menu.Choose_Ship_pl2(screen).move_cursor()
+
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_t:
                     screen_type = 'gameplay'
                     gameplay_screen.time = 300*FPS
 
