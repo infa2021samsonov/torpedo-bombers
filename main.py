@@ -1,7 +1,7 @@
 import pygame
 from gameplay import *
 from pygame.gfxdraw import *
-import Menu
+from Menu import *
 from gameplay import *
 from ModelShip import *
 
@@ -21,11 +21,14 @@ clock = pygame.time.Clock()
 finished = False
 
 # Это над для создания класса геймплея - не трогать и не смотреть
-Left_player = GameShip(100,1,1,1,0,10,10, (0,0,0),10,10,0.01, 4, 10*60, 100)
-Right_player = GameShip(100,1,1,1,0,10,10, (0,0,0),10,10,0.01, 4, 20*60, 100)
+Left_player = GameShip(100,1,1,1,0,10,10, (0,0,0),10,10,0.01, 4, 10*60, 1,10*60)
+Right_player = GameShip(100,1,1,1,0,10,10, (0,0,0),10,10,0.01, 4, 20*60, 3,10*60)
 
 # создание классов игровых экранов - меню и и геймплея
 gameplay_screen = Gameplay(Left_player, Right_player)
+menu = Mainmenu()
+choseShipLeft = Choose_Ship_pl1(menu)
+choseShipRight = Choose_Ship_pl2(menu)
 # Экран меню Андрея
 
 
@@ -33,12 +36,10 @@ while not finished:
     # для отрисовки интерфейса
     if screen_type == 'menu':
         gameplay_screen.time = 0
-        Menu.Mainmenu().blit_screen()
-        Menu.Mainmenu().display_menutext(screen)
-        Menu.Choose_Ship_pl1(screen).display_menu(screen)
-        Menu.Choose_Ship_pl2(screen).display_menu(screen)
-
-
+        menu.blit_screen()
+        menu.display_menutext(screen)
+        choseShipLeft.display_menu(screen)
+        choseShipRight.display_menu(screen)
 
     if screen_type == 'gameplay':
         gameplay_screen.time -= 1
@@ -64,21 +65,21 @@ while not finished:
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_RETURN:
-                            Menu.Mainmenu().START_KEY = True
+                            menu.START_KEY = True
                         if event.key == pygame.K_BACKSPACE:
-                            Menu.Mainmenu().BACK_KEY = True
+                            menu.BACK_KEY = True
                         if event.key == pygame.K_s:
-                            Menu.Mainmenu().DOWN_KEY1 = True
-                            Menu.Choose_Ship_pl1(screen).move_cursor()
+                            menu.DOWN_KEY1 = True
+                            choseShipLeft.move_cursor()
                         if event.key == pygame.K_k:
-                            Menu.Mainmenu().DOWN_KEY2 = True
-                            Menu.Choose_Ship_pl2(screen).move_cursor()
+                            menu.DOWN_KEY2 = True
+                            choseShipLeft.move_cursor()
                         if event.key == pygame.K_w:
-                            Menu.Mainmenu().UP_KEY1 = True
-                            Menu.Choose_Ship_pl1(screen).move_cursor()
+                            menu.UP_KEY1 = True
+                            choseShipLeft.move_cursor()
                         if event.key == pygame.K_i:
-                            Menu.Mainmenu().UP_KEY2 = True
-                            Menu.Choose_Ship_pl2(screen).move_cursor()
+                            menu.UP_KEY2 = True
+                            choseShipRight.move_cursor()
 
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_t:
                     screen_type = 'gameplay'

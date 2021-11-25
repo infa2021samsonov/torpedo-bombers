@@ -21,7 +21,6 @@ class Mainmenu():
         self.playing = False
         self.DISPLAY_W, self.DISPLAY_H = 1500, 800
         self.window = pygame.display.set_mode(((self.DISPLAY_W, self.DISPLAY_H)))
-        self.font_name = pygame.font.get_default_font()
         self.display = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H))
         self.mid_w, self.mid_h = self.DISPLAY_W // 2, self.DISPLAY_H // 2
         self.WHITE, self.BLACK, self.CYAN = WHITE, BLACK, CYAN
@@ -62,16 +61,16 @@ class Mainmenu():
         pygame.display.update()
         self.reset_keys()
 
-    def draw_text(self, text, size, x, y):
+    def draw_text(self,screen, text, size, x, y):
         '''
         Функция позволяющая отображать надписи.
         :return:
         '''
-        self.font = pygame.font.SysFont(self.font_name, size)
-        self.text_surface = self.font.render(text, True, self.WHITE)
-        self.text_rect = self.text_surface.get_rect()
-        self.text_rect.center = (x, y)
-        self.display.blit(self.text_surface, self.text_rect)
+        font = pygame.font.SysFont('Rockwell', size)
+        text_surface = font.render(text, True, self.WHITE)
+        text_rect = text_surface.get_rect()
+        text_rect.center = (x, y)
+        screen.blit(text_surface, text_rect)
 
     def display_menutext(self, screen):
         '''
@@ -81,9 +80,10 @@ class Mainmenu():
         self.run_display = True
         self.surface = screen
         while self.run_display:
-            self.draw_text('Player 1', 20, self.player1x, self.player1y)
-            self.draw_text('Player 2', 20, self.player2x, self.player2y)
-            self.draw_text('PLAY', 20, self.startx, self.starty)
+            self.draw_text(screen, 'Player 1', 20, self.player1x, self.player1y)
+            self.draw_text(screen, 'Player 2', 20, self.player2x, self.player2y)
+            print("hello")
+            self.draw_text(screen, 'PLAY', 20, self.startx, self.starty)
 
 class Choose_Ship_pl1():
     def __init__(self, Mainmenu):
