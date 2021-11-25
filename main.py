@@ -12,9 +12,9 @@ screen_type = 'menu'
 sea_color = (62, 145, 179)
 
 FPS = 60
-DISPLAY_W = 1500
-DISPLAY_H = 800
-screen = pygame.display.set_mode((DISPLAY_W, DISPLAY_H))
+DISPLAY_W = 1600
+DISPLAY_H = 900
+screen = pygame.display.set_mode((1600, 900))
 screen.fill(sea_color)
 pygame.display.update()
 clock = pygame.time.Clock()
@@ -36,7 +36,6 @@ while not finished:
     # для отрисовки интерфейса
     if screen_type == 'menu':
         gameplay_screen.time = 0
-        menu.blit_screen()
         menu.display_menutext(screen)
         choseShipLeft.display_menu(screen)
         choseShipRight.display_menu(screen)
@@ -62,24 +61,26 @@ while not finished:
             finished = True
         else:
             if screen_type == 'menu':
-                for event in pygame.event.get():
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_RETURN:
-                            menu.START_KEY = True
-                        if event.key == pygame.K_BACKSPACE:
-                            menu.BACK_KEY = True
-                        if event.key == pygame.K_s:
-                            menu.DOWN_KEY1 = True
-                            choseShipLeft.move_cursor()
-                        if event.key == pygame.K_k:
-                            menu.DOWN_KEY2 = True
-                            choseShipLeft.move_cursor()
-                        if event.key == pygame.K_w:
-                            menu.UP_KEY1 = True
-                            choseShipLeft.move_cursor()
-                        if event.key == pygame.K_i:
-                            menu.UP_KEY2 = True
-                            choseShipRight.move_cursor()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        menu.START_KEY = True
+                        screen_type = 'gameplay'
+                        gameplay_screen.time = 300 * FPS
+                        print("hi")
+                    if event.key == pygame.K_BACKSPACE:
+                        menu.BACK_KEY = True
+                    if event.key == pygame.K_s:
+                        menu.DOWN_KEY1 = True
+                        choseShipLeft.move_cursor()
+                    if event.key == pygame.K_k:
+                        menu.DOWN_KEY2 = True
+                        choseShipLeft.move_cursor()
+                    if event.key == pygame.K_w:
+                        menu.UP_KEY1 = True
+                        choseShipLeft.move_cursor()
+                    if event.key == pygame.K_i:
+                        menu.UP_KEY2 = True
+                        choseShipRight.move_cursor()
 
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_t:
                     screen_type = 'gameplay'

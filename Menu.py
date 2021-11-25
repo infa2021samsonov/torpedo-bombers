@@ -18,7 +18,7 @@ class Mainmenu():
     def __init__(self):
         self.running = True
         self.playing = False
-        self.DISPLAY_W, self.DISPLAY_H = 1500, 800
+        self.DISPLAY_W, self.DISPLAY_H = 1600, 900
         self.window = pygame.display.set_mode(((self.DISPLAY_W, self.DISPLAY_H)))
         self.display = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H))
         self.mid_w, self.mid_h = self.DISPLAY_W // 2, self.DISPLAY_H // 2
@@ -26,8 +26,6 @@ class Mainmenu():
         self.startx, self.starty = self.mid_w, self.mid_h
         self.player1x, self.player1y = self.mid_w // 2, self.mid_h // 2
         self.player2x, self.player2y = self.mid_w * 3 // 2, self.mid_h // 2
-
-
 
     def check_events(self):
         '''
@@ -54,10 +52,6 @@ class Mainmenu():
     def reset_keys(self):
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY = False, False, False, False
 
-    def blit_screen(self):
-        #self.window.blit(self.display, (0, 0))
-        self.reset_keys()
-
     def draw_text(self,screen, text, size, x, y):
         '''
         Функция позволяющая отображать надписи.
@@ -76,8 +70,11 @@ class Mainmenu():
         '''
         self.draw_text(screen, 'Player 1', 20, self.player1x, self.player1y)
         self.draw_text(screen, 'Player 2', 20, self.player2x, self.player2y)
-        print("hello")
         self.draw_text(screen, 'PLAY', 20, self.startx, self.starty)
+
+    def setShips(self, ):
+
+        pass
 
 class Choose_Ship_pl1():
     def __init__(self, mainmenu: Mainmenu):
@@ -92,13 +89,14 @@ class Choose_Ship_pl1():
         self.boatname3_1x, self.boatname3_1y = self.mid_w // 2, self.mid_h // 2 + 90
         self.WHITE, self.BLACK, self.CYAN = WHITE, BLACK, CYAN
         self.cursor_rect = pygame.Rect(0, 0, 20, 20)
+        self.state = 'Bismark'
 
     def display_menu(self, screen):
         '''
         Функция отображает название кораблей для игрока 1
         :return:
         '''
-        self.mainmenu.check_events()
+        #self.mainmenu.check_events()
         self.mainmenu.draw_text(screen, 'Main Menu', 20, self.DISPLAY_W // 2, 20)
         self.mainmenu.draw_text(screen, 'Bismark', 15, self.boatname1_1x, self.boatname1_1y)
         self.mainmenu.draw_text(screen, 'Iowa', 15, self.boatname2_1x, self.boatname2_1y)
@@ -141,6 +139,7 @@ class Choose_Ship_pl2:
         self.boatname2_2x, self.boatname2_2y = self.mid_w * 3 // 2, self.mid_h // 2 + 60
         self.boatname3_2x, self.boatname3_2y = self.mid_w * 3 // 2, self.mid_h // 2 + 90
         self.cursor_rect = pygame.Rect(0, 0, 20, 20)
+        self.state = 'Bismark'
         self.WHITE, self.BLACK, self.CYAN = WHITE, BLACK, CYAN
 
 
@@ -149,7 +148,7 @@ class Choose_Ship_pl2:
         Функция отображает название кораблей для игрока 2
         :return:
         '''
-        self.mainmenu.check_events()
+        #self.mainmenu.check_events()
         self.mainmenu.draw_text(screen, 'Main Menu', 20, self.DISPLAY_W // 2, 20)
         self.mainmenu.draw_text(screen, 'Bismark', 15, self.boatname1_2x, self.boatname1_2y)
         self.mainmenu.draw_text(screen, 'Iowa', 15, self.boatname2_2x, self.boatname2_2y)
