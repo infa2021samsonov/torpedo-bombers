@@ -1,3 +1,5 @@
+import os
+import sys
 from math import *
 import pygame
 
@@ -10,8 +12,9 @@ class Torped:
         self.alpha = alpha
         self.v = v
         self.dt = 0.1
-        image = pygame.image.load('torpedo.png').convert_alpha()
-        new_image_0 = pygame.transform.scale(image, (image.get_width() * 0.2, image.get_height() * 0.2))
+        path = os.path.abspath(os.path.dirname(sys.argv[0]))
+        image = pygame.image.load(path + '/torpedo.png').convert_alpha()
+        new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.2), int(image.get_height() * 0.2)))
         self.new_image = pygame.transform.rotate(new_image_0, (alpha - pi / 2) * 360 * (2 * pi) ** -1)
 
     def moveTorped(self):

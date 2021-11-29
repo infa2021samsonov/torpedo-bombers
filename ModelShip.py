@@ -1,6 +1,7 @@
 import math
 import os
 import sys
+from Torped_classes import *
 from random import choice
 from random import randint
 import pygame
@@ -17,8 +18,10 @@ FORCE = [100, 200, 300]
 TURNFORCE = [10, 20, 30]
 MASS = [1000, 2000, 3000]
 
+
 class GameShip:
-    def __init__(self, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP, quantity_of_torpeds, recharge_time):
+    def __init__(self, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
+                 quantity_of_torpeds, recharge_time):
         self.maxXP = maxXP
         self.m = choice(MASS)
         self.b = 0.01
@@ -32,7 +35,7 @@ class GameShip:
         self.Vy = 0
         self.a = 5
         self.omega = 0.1
-        self.gameXP = maxXP/2
+        self.gameXP = maxXP / 2
         self.color = choice(COLOR)
         self.F = choice(FORCE)
         self.TF = choice(TURNFORCE)
@@ -42,6 +45,7 @@ class GameShip:
 
         self.ka = False
         self.kd = False
+        self.kshift = False
         # Количество торпедных аппаратов у данного корабля и время их перезарядки
         self.quantity_of_torpeds = quantity_of_torpeds
         self.recharge_time = recharge_time
@@ -62,7 +66,8 @@ class GameShip:
                 self.ka = True
             if event.key == pygame.K_d:
                 self.kd = True
-
+            if event.key == pygame.K_LSHIFT:
+                self.kshift = True
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_w:
@@ -73,6 +78,8 @@ class GameShip:
                 self.ka = False
             if event.key == pygame.K_d:
                 self.kd = False
+            if event.key == pygame.K_LSHIFT:
+                self.kshift = False
 
     def DrawShip(self, screen):
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
@@ -82,13 +89,13 @@ class GameShip:
         screen.blit(self.new_image, (self.x, self.y))
         pass
 
-    def Move(self):
+    def Move(self, torp_arr):
         if self.kw == True:
             if abs(self.Vx) <= self.Vxmax and abs(self.Vy) <= self.Vymax:
                 self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
                 self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
                 self.x = self.x - self.Vx * self.dt
-                self.y= self.y - self.Vy * self.dt
+                self.y = self.y - self.Vy * self.dt
             else:
                 self.x = self.x - self.Vmax * math.sin(self.alpha) * self.dt
                 self.y = self.y - self.Vmax * math.cos(self.alpha) * self.dt
@@ -105,9 +112,17 @@ class GameShip:
             self.alpha = self.alpha + self.omega * self.dt
         if self.kd == True:
             self.alpha = self.alpha - self.omega * self.dt
+        if self.kshift == True:
+            self.kshift = False
 
-
-
-
-
+    def fire_torped(self, torp_arr, now_t):
+        all_tubes_empty = True
+        for i in range(0, len(self.torped_tubes)):
+            if self.torped_tubes[i] - now_t >= self.recharge_time:
+                all_tubes_empty = False
+                self.torped_tubes[i] = now_t
+                break
+        if not(all_tubes_empty):
+            torp = Torped(self.x, self.y, self.alpha, 10)
+            torp_arr.append(torp)
 

@@ -44,8 +44,8 @@ while not finished:
         gameplay_screen.time -= 1
         gameplay_screen.leftPl.DrawShip(screen)
         gameplay_screen.rightPl.DrawShip(screen)
-        gameplay_screen.rightPl.Move()
-        gameplay_screen.leftPl.Move()
+        gameplay_screen.rightPl.Move(gameplay_screen.torpeds)
+        gameplay_screen.leftPl.Move(gameplay_screen.torpeds)
         gameplay_screen.drawTorpeds(screen)
         gameplay_screen.drawTime(screen)
         gameplay_screen.drawInfo(screen)
@@ -92,5 +92,9 @@ while not finished:
             if screen_type == 'gameplay':
                 gameplay_screen.leftPl.keyinput(event)
                 gameplay_screen.rightPl.keyinput(event)
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
+                    gameplay_screen.leftPl.fire_torped(gameplay_screen.torpeds,gameplay_screen.time)
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RSHIFT:
+                    gameplay_screen.rightPl.fire_torped(gameplay_screen.torpeds,gameplay_screen.time)
 
 pygame.quit()

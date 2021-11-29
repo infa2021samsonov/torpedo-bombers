@@ -38,16 +38,8 @@ class Gameplay:
 
     def drawTorpeds(self, screen):
         for i in range(0, len(self.torpeds)):
-            if (self.torpeds[i].x <= 1600) and (self.torpeds[i].x >= 0) and (self.torpeds[i].y <= 900) and (
-                    self.torpeds[i].y >= 0):
-                self.torpeds[i].moveTorped()
-                if self.torpeds[i].Hit(screen):
-                    self.torpeds[i].detonation(screen)
-                    self.torpeds.remove(self.torpeds[i])
-                else:
-                    screen.blit(self.torpeds[i].new_image, (self.torpeds[i].x, self.torpeds[i].y))
-            else:
-                self.torpeds.remove(self.torpeds[i])
+            self.torpeds[i].moveTorped()
+            screen.blit(self.torpeds[i].new_image, (self.torpeds[i].x, self.torpeds[i].y))
 
     def drawTorpedIndicators(self, screen, player: GameShip, left_or_right):
         x = 0
