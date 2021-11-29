@@ -18,9 +18,6 @@ class Gameplay:
         self.font1 = pygame.font.SysFont('Rockwell', 60)
         self.font2 = pygame.font.SysFont('Rockwell', 60)
 
-    def drawShips(self, screen):
-        pass
-
     def drawInfo(self, screen):
         gap = 15
         red_name_lable = self.font2.render("Bismark", True, (255, 255, 255), None)

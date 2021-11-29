@@ -1,4 +1,6 @@
 import math
+import os
+import sys
 from random import choice
 from random import randint
 import pygame
@@ -68,7 +70,8 @@ class GameShip:
                 self.kd = False
 
     def DrawShip(self, screen):
-        image = pygame.image.load('/Users/samsonovv/torpedo-bombers/IOWA_top-removebg-preview.png').convert_alpha()
+        path = os.path.abspath(os.path.dirname(sys.argv[0]))
+        image = pygame.image.load(path + '/IOWA_top-removebg-preview.png').convert_alpha()
         new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.15), int(image.get_height() * 0.15)))
         self.new_image = pygame.transform.rotate(new_image_0, (self.alpha + math.pi / 2) * 360 * (2 * math.pi) ** -1)
         screen.blit(self.new_image, (self.x, self.y))
