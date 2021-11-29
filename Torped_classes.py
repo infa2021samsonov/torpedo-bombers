@@ -14,12 +14,12 @@ class Torped:
         self.dt = 0.1
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
         image = pygame.image.load(path + '/torpedo.png').convert_alpha()
-        new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.2), int(image.get_height() * 0.2)))
-        self.new_image = pygame.transform.rotate(new_image_0, (alpha - pi / 2) * 360 * (2 * pi) ** -1)
+        new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.05), int(image.get_height() * 0.05)))
+        self.new_image = pygame.transform.rotate(new_image_0, (alpha - pi) * 360 * (2 * pi) ** -1)
 
     def moveTorped(self):
-        self.x += self.v * sin(self.alpha) * self.dt
-        self.y += self.v * cos(self.alpha) * self.dt
+        self.x += self.v * sin(self.alpha - pi / 2) * self.dt
+        self.y += self.v * cos(self.alpha - pi / 2) * self.dt
         pass
 
     def Hit(self):
