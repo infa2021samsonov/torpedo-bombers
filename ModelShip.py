@@ -18,15 +18,20 @@ TURNFORCE = [10, 20, 30]
 MASS = [1000, 2000, 3000]
 
 class GameShip:
-    def __init__(self, m, b, x, y, alpha, V, omega, gameXP, color, F, TF, dt, maxXP, quantity_of_torpeds, recharge_time):
+    def __init__(self, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP, quantity_of_torpeds, recharge_time):
         self.maxXP = maxXP
         self.m = choice(MASS)
         self.b = 0.01
         self.x = 450
         self.y = 20
         self.alpha = 0
-        self.V = 10
-        self.omega = 10
+        self.Vmax = 70.7
+        self.Vxmax = 50
+        self.Vymax = 50
+        self.Vx = 0
+        self.Vy = 0
+        self.a = 5
+        self.omega = 0.1
         self.gameXP = maxXP/2
         self.color = choice(COLOR)
         self.F = choice(FORCE)
@@ -79,11 +84,23 @@ class GameShip:
 
     def Move(self):
         if self.kw == True:
-            self.x = self.x + self.V * math.cos(self.alpha) * self.dt
-            self.y = self.y + self.V * math.sin(self.alpha) * self.dt
+            if abs(self.Vx) <= self.Vxmax and abs(self.Vy) <= self.Vymax:
+                self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
+                self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
+                self.x = self.x - self.Vx * self.dt
+                self.y= self.y - self.Vy * self.dt
+            else:
+                self.x = self.x - self.Vmax * math.sin(self.alpha) * self.dt
+                self.y = self.y - self.Vmax * math.cos(self.alpha) * self.dt
         if self.ks == True:
-            self.x = self.x - self.V * math.cos(self.alpha) * self.dt
-            self.y = self.y - self.V * math.sin(self.alpha) * self.dt
+            if abs(self.Vx) <= self.Vxmax and abs(self.Vy) <= self.Vymax:
+                self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
+                self.Vy = self.y + self.a * math.cos(self.alpha) * self.dt
+                self.x = self.x + self.Vx * self.dt
+                self.y = self.y + self.Vy * self.dt
+            else:
+                self.x = self.x + self.Vmax * math.sin(self.alpha) * self.dt
+                self.y = self.y + self.Vmax * math.cos(self.alpha) * self.dt
         if self.ka == True:
             self.alpha = self.alpha + self.omega * self.dt
         if self.kd == True:
