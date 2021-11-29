@@ -116,6 +116,8 @@ class GameShip:
             self.kshift = False
 
     def fire_torped(self, torp_arr, now_t):
+        path = os.path.abspath(os.path.dirname(sys.argv[0]))
+
         all_tubes_empty = True
         for i in range(0, len(self.torped_tubes)):
             if self.torped_tubes[i] - now_t >= self.recharge_time:
@@ -123,6 +125,9 @@ class GameShip:
                 self.torped_tubes[i] = now_t
                 break
         if not(all_tubes_empty):
+            pygame.mixer.music.load(path + "/fire.mp3")
+            pygame.mixer.music.play()
             torp = Torped(self.x, self.y, self.alpha, 10)
             torp_arr.append(torp)
+
 

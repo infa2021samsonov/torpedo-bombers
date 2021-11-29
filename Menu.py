@@ -1,3 +1,6 @@
+import os
+import sys
+
 import pygame
 import math
 
@@ -131,19 +134,22 @@ class Choose_Ship_pl1():
 
     def display_ship1(self, screen, state):
         if state == 'Bismark':
-            image = pygame.image.load('/Users/andre/PycharmProjects/torpedo-bombers/Bismark_side-removebg-preview.png').convert_alpha()
+            path = os.path.abspath(os.path.dirname(sys.argv[0]))
+            image = pygame.image.load(path + '/Bismark_side-removebg-preview.png').convert_alpha()
             new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.22), int(image.get_height() * 0.22)))
             img_with_flip = pygame.transform.flip(new_image_0, True, False)
             self.new_image = pygame.transform.rotate(img_with_flip, 0)
             screen.blit(self.new_image, (self.shippos1x, self.shippos1y))
         elif state == 'Iowa':
-            image = pygame.image.load('/Users/andre/PycharmProjects/torpedo-bombers/IOWA_side-removebg-preview.png').convert_alpha()
+            path = os.path.abspath(os.path.dirname(sys.argv[0]))
+            image = pygame.image.load(path + '/IOWA_side-removebg-preview.png').convert_alpha()
             new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.22), int(image.get_height() * 0.22)))
             img_with_flip = pygame.transform.flip(new_image_0, True, False)
             self.new_image = pygame.transform.rotate(img_with_flip, 0)
             screen.blit(self.new_image, (self.shippos1x, self.shippos1y))
         elif state == 'Yamato':
-            image = pygame.image.load('/Users/andre/PycharmProjects/torpedo-bombers/Yamato_side-removebg-preview.png').convert_alpha()
+            path = os.path.abspath(os.path.dirname(sys.argv[0]))
+            image = pygame.image.load(path + '/Yamato_side-removebg-preview.png').convert_alpha()
             new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.22), int(image.get_height() * 0.22)))
             img_with_flip = pygame.transform.flip(new_image_0, True, False)
             self.new_image = pygame.transform.rotate(img_with_flip, 0)
@@ -202,17 +208,20 @@ class Choose_Ship_pl2:
 
     def display_ship2(self, screen, state):
         if state == 'Bismark':
-            image = pygame.image.load('/Users/andre/PycharmProjects/torpedo-bombers/Bismark_side-removebg-preview.png').convert_alpha()
+            path = os.path.abspath(os.path.dirname(sys.argv[0]))
+            image = pygame.image.load(path + '/Bismark_side-removebg-preview.png').convert_alpha()
             new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.22), int(image.get_height() * 0.22)))
             self.new_image = pygame.transform.rotate(new_image_0, 0)
             screen.blit(self.new_image, (self.shippos2x, self.shippos2y))
         elif state == 'Iowa':
-            image = pygame.image.load('/Users/andre/PycharmProjects/torpedo-bombers/IOWA_side-removebg-preview.png').convert_alpha()
+            path = os.path.abspath(os.path.dirname(sys.argv[0]))
+            image = pygame.image.load(path + '/IOWA_side-removebg-preview.png').convert_alpha()
             new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.22), int(image.get_height() * 0.22)))
             self.new_image = pygame.transform.rotate(new_image_0, 0)
             screen.blit(self.new_image, (self.shippos2x, self.shippos2y))
         elif state == 'Yamato':
-            image = pygame.image.load('/Users/andre/PycharmProjects/torpedo-bombers/Yamato_side-removebg-preview.png').convert_alpha()
+            path = os.path.abspath(os.path.dirname(sys.argv[0]))
+            image = pygame.image.load(path + '/Yamato_side-removebg-preview.png').convert_alpha()
             new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.22), int(image.get_height() * 0.22)))
             self.new_image = pygame.transform.rotate(new_image_0, 0)
             screen.blit(self.new_image, (self.shippos2x, self.shippos2y))
