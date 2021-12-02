@@ -37,9 +37,12 @@ while not finished:
     if screen_type == 'menu':
         gameplay_screen.time = 0
         menu.display_menutext(screen)
-        choseShipLeft.display_menu(screen)
-        choseShipRight.display_menu(screen)
+        choseShipLeft.display_menu(screen, choseShipLeft.move_cursor())
+        #menu.reset_keys()
+        choseShipRight.display_menu(screen, choseShipRight.move_cursor())
+        menu.reset_keys()
         choseShipLeft.display_ship1(screen, choseShipLeft.move_cursor())
+        menu.reset_keys()
         choseShipRight.display_ship2(screen, choseShipRight.move_cursor())
         menu.reset_keys()
 

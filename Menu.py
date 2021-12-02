@@ -2,7 +2,7 @@ import os
 import sys
 
 import pygame
-import math
+
 
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
@@ -71,6 +71,7 @@ class Mainmenu():
         Функция отображает надписи в меню
         :return:
         '''
+        self.draw_text(screen, 'MAIN MENU', 60, self.mid_w, 60, WHITE)
         self.draw_text(screen, 'NIGGER 1', 30, self.player1x, self.player1y, RED)
         self.draw_text(screen, 'NIGGER 2', 30, self.player2x, self.player2y, GREEN)
         self.draw_text(screen, 'PRESS ''ENTER'' TO START THE GAME', 50, self.startx, self.starty, WHITE)
@@ -94,45 +95,52 @@ class Choose_Ship_pl1():
         self.cursor_rect = pygame.Rect(0, 0, 20, 20)
         self.state = 'Bismark'
 
-    def display_menu(self, screen):
-        '''
-        Функция отображает название кораблей для игрока 1
-        :return:
-        '''
-        #self.mainmenu.check_events()
-        self.mainmenu.draw_text(screen, 'Main Menu', 70, self.DISPLAY_W // 2, 60, WHITE)
-        self.mainmenu.draw_text(screen, 'Bismark', 40, self.boatname1_1x, self.boatname1_1y, WHITE)
-        self.mainmenu.draw_text(screen, 'Iowa', 40, self.boatname2_1x, self.boatname2_1y, WHITE)
-        self.mainmenu.draw_text(screen, 'Yamato', 40, self.boatname3_1x, self.boatname3_1y, WHITE)
-
 
     def move_cursor(self):
+        '''
+            Функция выделяет название выбранного корабля
+            :return:подсвеченный текст
+        '''
         if self.mainmenu.DOWN_KEY1:
             if self.state == 'Bismark':
-                self.cursor_rect.midtop = (self.boatname1_1x + self.offset, self.boatname1_1y)
-                self.state = 'Iowa'
-            elif self.state == 'Iowa':
-                self.cursor_rect.midtop = (self.boatname2_1x + self.offset, self.boatname2_1y)
                 self.state = 'Yamato'
             elif self.state == 'Yamato':
-                self.cursor_rect.midtop = (self.boatname3_1x + self.offset, self.boatname3_1y)
+                self.state = 'Iowa'
+            elif self.state == 'Iowa':
                 self.state = 'Bismark'
         elif self.mainmenu.UP_KEY1:
             if self.state == 'Bismark':
-                self.cursor_rect.midtop = (self.boatname1_1x + self.offset, self.boatname1_1y)
-                self.state = 'Yamato'
-            elif self.state == 'Yamato':
-                self.cursor_rect.midtop = (self.boatname3_1x + self.offset, self.boatname3_1y)
                 self.state = 'Iowa'
             elif self.state == 'Iowa':
-                self.cursor_rect.midtop = (self.boatname2_1x + self.offset, self.boatname2_1y)
+                self.state = 'Yamato'
+            elif self.state == 'Yamato':
                 self.state = 'Bismark'
-
         return self.state
 
 
+    def display_menu(self, screen, state):
+        if state == 'Bismark':
+            self.mainmenu.draw_text(screen, 'Bismark', 70, self.boatname1_1x, self.boatname1_1y, GOLD)
+            self.mainmenu.draw_text(screen, 'Iowa', 40, self.boatname2_1x, self.boatname2_1y + 15, WHITE)
+            self.mainmenu.draw_text(screen, 'Yamato', 40, self.boatname3_1x, self.boatname3_1y + 15, WHITE)
+        elif state == 'Iowa':
+            self.mainmenu.draw_text(screen, 'Bismark', 40, self.boatname1_1x, self.boatname1_1y - 15, WHITE)
+            self.mainmenu.draw_text(screen, 'Iowa', 70, self.boatname2_1x, self.boatname2_1y , GOLD)
+            self.mainmenu.draw_text(screen, 'Yamato', 40, self.boatname3_1x, self.boatname3_1y + 15, WHITE)
+        elif state == 'Yamato':
+            self.mainmenu.draw_text(screen, 'Bismark', 40, self.boatname1_1x, self.boatname1_1y - 15, WHITE)
+            self.mainmenu.draw_text(screen, 'Iowa', 40, self.boatname2_1x, self.boatname2_1y - 15, WHITE)
+            self.mainmenu.draw_text(screen, 'Yamato', 70, self.boatname3_1x, self.boatname3_1y, GOLD)
+
 
     def display_ship1(self, screen, state):
+        '''
+        Функция отображанет изображение корабля выбранного игроком 1
+
+        :param screen: экран....
+        :param state: конкретный выбранный корабль
+        :return: картиночу отображает
+        '''
         if state == 'Bismark':
             path = os.path.abspath(os.path.dirname(sys.argv[0]))
             image = pygame.image.load(path + '/Bismark_side-removebg-preview.png').convert_alpha()
@@ -173,40 +181,54 @@ class Choose_Ship_pl2:
         self.WHITE, self.BLACK, self.CYAN = WHITE, BLACK, CYAN
 
 
-    def display_menu(self, screen):
+
+    def move_cursor(self):
+        '''
+            Функция выделяет название выбранного корабля
+            :return:подсвеченный текст
+        '''
+        if self.mainmenu.DOWN_KEY2:
+            if self.state == 'Bismark':
+                self.state = 'Iowa'
+            elif self.state == 'Iowa':
+                self.state = 'Yamato'
+            elif self.state == 'Yamato':
+                self.state = 'Bismark'
+        elif self.mainmenu.UP_KEY2:
+            if self.state == 'Bismark':
+                self.state = 'Iowa'
+            elif self.state == 'Iowa':
+                self.state = 'Yamato'
+            elif self.state == 'Yamato':
+                self.state = 'Bismark'
+        return self.state
+
+    def display_menu(self, screen, state):
         '''
         Функция отображает название кораблей для игрока 2
         :return:
         '''
-        self.mainmenu.draw_text(screen, 'Bismark', 40, self.boatname1_2x, self.boatname1_2y, WHITE)
-        self.mainmenu.draw_text(screen, 'Iowa', 40, self.boatname2_2x, self.boatname2_2y, WHITE)
-        self.mainmenu.draw_text(screen, 'Yamato', 40, self.boatname3_2x, self.boatname3_2y, WHITE)
-
-    def move_cursor(self):
-        if self.mainmenu.DOWN_KEY2:
-            if self.state == 'Bismark':
-                self.cursor_rect.midtop = (self.boatname1_2x + self.offset, self.boatname1_2y)
-                self.state = 'Iowa'
-            elif self.state == 'Iowa':
-                self.cursor_rect.midtop = (self.boatname2_2x + self.offset, self.boatname2_2y)
-                self.state = 'Yamato'
-            elif self.state == 'Yamato':
-                self.cursor_rect.midtop = (self.boatname3_2x + self.offset, self.boatname3_2y)
-                self.state = 'Bismark'
-        elif self.mainmenu.UP_KEY2:
-            if self.state == 'Bismark':
-                self.cursor_rect.midtop = (self.boatname1_2x + self.offset, self.boatname1_2y)
-                self.state = 'Yamato'
-            elif self.state == 'Yamato':
-                self.cursor_rect.midtop = (self.boatname3_2x + self.offset, self.boatname3_2y)
-                self.state = 'Iowa'
-            elif self.state == 'Iowa':
-                self.cursor_rect.midtop = (self.boatname2_2x + self.offset, self.boatname2_2y)
-                self.state = 'Bismark'
-
-        return self.state
+        if state == 'Bismark':
+            self.mainmenu.draw_text(screen, 'Bismark', 70, self.boatname1_2x, self.boatname1_2y, GOLD)
+            self.mainmenu.draw_text(screen, 'Iowa', 40, self.boatname2_2x, self.boatname2_2y + 15, WHITE)
+            self.mainmenu.draw_text(screen, 'Yamato', 40, self.boatname3_2x, self.boatname3_2y + 15, WHITE)
+        elif state == 'Iowa':
+            self.mainmenu.draw_text(screen, 'Bismark', 40, self.boatname1_2x, self.boatname1_2y - 15, WHITE)
+            self.mainmenu.draw_text(screen, 'Iowa', 70, self.boatname2_2x, self.boatname2_2y , GOLD)
+            self.mainmenu.draw_text(screen, 'Yamato', 40, self.boatname3_2x, self.boatname3_2y + 15, WHITE)
+        elif state == 'Yamato':
+            self.mainmenu.draw_text(screen, 'Bismark', 40, self.boatname1_2x, self.boatname1_2y - 15, WHITE)
+            self.mainmenu.draw_text(screen, 'Iowa', 40, self.boatname2_2x, self.boatname2_2y - 15, WHITE)
+            self.mainmenu.draw_text(screen, 'Yamato', 70, self.boatname3_2x, self.boatname3_2y, GOLD)
 
     def display_ship2(self, screen, state):
+        '''
+            Функция отображанет изображение корабля выбранного игроком 2
+
+            :param screen: экран....
+            :param state: конкретный выбранный корабль
+            :return: картиночу отображает
+        '''
         if state == 'Bismark':
             path = os.path.abspath(os.path.dirname(sys.argv[0]))
             image = pygame.image.load(path + '/Bismark_side-removebg-preview.png').convert_alpha()
