@@ -60,6 +60,13 @@ while not finished:
         gameplay_screen.drawXP(screen, gameplay_screen.leftPl, 'left')
         gameplay_screen.drawXP(screen, gameplay_screen.rightPl, 'right')
 
+        # add collision
+        for torpedo in gameplay_screen.torpeds:
+            gameplay_screen.leftPl.collision(torpedo)
+            gameplay_screen.rightPl.collision(torpedo)
+
+
+
     clock.tick(FPS)
     pygame.display.update()
     screen.fill(sea_color)

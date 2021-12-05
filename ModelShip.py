@@ -55,6 +55,7 @@ class GameShip:
             self.torped_tubes.append(300 * 60)
         # это сделано Сомом для отображения
 
+
     def keyinput(self, event):
         if event.type == pygame.KEYDOWN:
 
@@ -130,4 +131,11 @@ class GameShip:
             torp = Torped(self.x, self.y, self.alpha, 10)
             torp_arr.append(torp)
 
+    # add mask collision no effect on other code
+    def collision(self,torpedo):
+        ship_mask = pygame.mask.from_surface(self.new_image)
+        offset = (int(self.x-torpedo.x), int(self.y-torpedo.y))
+        collide = torpedo.mask.overlap(ship_mask, offset)
+        if collide:
+            print(offset, collide)
 

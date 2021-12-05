@@ -16,6 +16,7 @@ class Torped:
         image = pygame.image.load(path + '/torpedo.png').convert_alpha()
         new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.05), int(image.get_height() * 0.05)))
         self.new_image = pygame.transform.rotate(new_image_0, (alpha - pi) * 360 * (2 * pi) ** -1)
+        self.mask = pygame.mask.from_surface(self.new_image)
 
     def moveTorped(self):
         self.x += self.v * sin(self.alpha - pi / 2) * self.dt
@@ -30,3 +31,7 @@ class Torped:
         # графическое отображение взрыва при попадании
         print("Фюрер передает Привет!")
         pass
+
+
+
+
