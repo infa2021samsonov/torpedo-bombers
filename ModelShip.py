@@ -148,17 +148,14 @@ class GameShip:
 
 
     def collision(self,torpedo):
-        ship_mask = pygame.mask.from_surface(self.new_image)
-        offset = (int(self.x-torpedo.x), int(self.y-torpedo.y))
-        collide = torpedo.mask.overlap(ship_mask, offset)
         A1 = - self.height
         B1 = - self.width
         C1 = self.x * self.height + self.y * self.width
         A2 = self.height
         B2 = self.width
         C2 = - self.x * self.height + self.y * self.width
-        Ro1 = abs(A1 * x.torped + B1 * y.torped + C1)/sqrt(A1**2 + B1**2 + C1**2)
-        Ro2 = abs(21 * x.torped + 21 * y.torped + C2) / sqrt(A2 ** 2 + B2 ** 2 + C2 ** 2)
+        Ro1 = abs(A1 * torpedo.x + B1 * torpedo.y + C1)/sqrt(A1**2 + B1**2 + C1**2)
+        Ro2 = abs(21 * torpedo.x + 21 * torpedo.y + C2) / sqrt(A2 ** 2 + B2 ** 2 + C2 ** 2)
         if (Ro1 <= self.width / 2) and (Ro2 <= self.hieght / 2):
             return True
 
