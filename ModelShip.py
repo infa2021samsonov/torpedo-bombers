@@ -5,6 +5,7 @@ from Torped_classes import *
 from random import choice
 from random import randint
 import pygame
+from pygame.draw import *
 
 FPS = 30
 
@@ -20,8 +21,10 @@ MASS = [1000, 2000, 3000]
 
 
 class GameShip:
-    def __init__(self, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
+    def __init__(self, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, DeltaAlfa, DeltaAlfaShtrih, dt, maxXP,
                  quantity_of_torpeds, recharge_time):
+        self.DeltaAlfa = 0
+        self.DeltaAlfaShtrih = 0
         self.maxXP = maxXP
         self.m = choice(MASS)
         self.b = 0.01
@@ -86,9 +89,13 @@ class GameShip:
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
         image = pygame.image.load(path + '/IOWA_top-removebg-preview.png').convert_alpha()
         new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.15), int(image.get_height() * 0.15)))
-        self.new_image = pygame.transform.rotate(new_image_0, (self.alpha + math.pi / 2) * 360 * (2 * math.pi) ** -1)
-        screen.blit(self.new_image, (self.x, self.y))
+        self.new_image = pygame.transform.rotate(new_image_0, (self.alpha + pi/2) * 360 * (2 * math.pi) ** -1)
+
+        screen.blit(self.new_image, (self.x - self.new_image.get_width()/2, self.y - self.new_image.get_height()/2))
+        circle(screen, (255,0,0), (self.x, self.y), 10)
         pass
+
+
 
     def Move(self, torp_arr):
         if self.kw == True:
@@ -103,18 +110,22 @@ class GameShip:
         if self.ks == True:
             if abs(self.Vx) <= self.Vxmax and abs(self.Vy) <= self.Vymax:
                 self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
-                self.Vy = self.y + self.a * math.cos(self.alpha) * self.dt
+                self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
                 self.x = self.x + self.Vx * self.dt
                 self.y = self.y + self.Vy * self.dt
             else:
                 self.x = self.x + self.Vmax * math.sin(self.alpha) * self.dt
                 self.y = self.y + self.Vmax * math.cos(self.alpha) * self.dt
+
+
+
         if self.ka == True:
             self.alpha = self.alpha + self.omega * self.dt
         if self.kd == True:
             self.alpha = self.alpha - self.omega * self.dt
         if self.kshift == True:
             self.kshift = False
+
 
     def fire_torped(self, torp_arr, now_t):
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
