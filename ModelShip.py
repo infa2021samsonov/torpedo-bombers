@@ -19,22 +19,26 @@ FORCE = [100, 200, 300]
 TURNFORCE = [10, 20, 30]
 MASS = [1000, 2000, 3000]
 
-
 class GameShip:
-    def __init__(self, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
+    def __init__(self, name, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
                  quantity_of_torpeds, recharge_time):
-        self.name = 'hhj'
+        self.name = 'IOWA'
+        path = os.path.abspath(os.path.dirname(sys.argv[0]))
+        image = pygame.image.load(path + '/'+self.name + '_top-removebg-preview.png').convert_alpha()
+        self.new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.15), int(image.get_height() * 0.15)))
+        self.height = self.new_image_0.get_height()
+        self.width = self.new_image_0.get_width()
         self.maxXP = maxXP
         self.m = choice(MASS)
         self.b = 0.01
-        self.x = 450
-        self.y = 20
+        self.x = 100
+        self.y = 800
         self.alpha = 0
+        self.Vx = 0
+        self.Vy = 0
         self.Vmax = 70.7
         self.Vxmax = 50
         self.Vymax = 50
-        self.Vx = 0
-        self.Vy = 0
         self.a = 5
         self.omega = 0.1
         self.gameXP = maxXP / 2
@@ -85,11 +89,7 @@ class GameShip:
                 self.kshift = False
 
     def DrawShip(self, screen):
-        path = os.path.abspath(os.path.dirname(sys.argv[0]))
-        image = pygame.image.load(path + '/IOWA_top-removebg-preview.png').convert_alpha()
-        new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.15), int(image.get_height() * 0.15)))
-        self.new_image = pygame.transform.rotate(new_image_0, (self.alpha + pi/2) * 360 * (2 * math.pi) ** -1)
-
+        self.new_image = pygame.transform.rotate(self.new_image_0, (self.alpha + pi/2) * 360 * (2 * math.pi) ** -1)
         screen.blit(self.new_image, (self.x - self.new_image.get_width()/2, self.y - self.new_image.get_height()/2))
         circle(screen, (255,0,0), (self.x, self.y), 10)
         pass
@@ -99,8 +99,8 @@ class GameShip:
     def Move(self, torp_arr):
         if self.kw == True:
             if abs(self.Vx) <= self.Vxmax and abs(self.Vy) <= self.Vymax:
-                self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
-                self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
+                self.Vx = self.Vx - self.a * math.sin(self.alpha + pi) * self.dt
+                self.Vy = self.Vy - self.a * math.cos(self.alpha + pi) * self.dt
                 self.x = self.x - self.Vx * self.dt
                 self.y = self.y - self.Vy * self.dt
             else:
@@ -118,9 +118,10 @@ class GameShip:
 
 
 
-        if self.ka == True:
+        if (self.ka == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
             self.alpha = self.alpha + self.omega * self.dt
-        if self.kd == True:
+            print(self.Vx**2 + self.Vy**2)
+        if (self.kd == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
             self.alpha = self.alpha - self.omega * self.dt
         if self.kshift == True:
             self.kshift = False
@@ -142,11 +143,27 @@ class GameShip:
             torp = Torped(self.x + h*math.cos(self.alpha), self.y + h*math.sin(self.alpha), self.alpha, 10)
             torp_arr.append(torp)
 
-    # add mask collision no effect on other code
+
+
+
+
     def collision(self,torpedo):
         ship_mask = pygame.mask.from_surface(self.new_image)
         offset = (int(self.x-torpedo.x), int(self.y-torpedo.y))
         collide = torpedo.mask.overlap(ship_mask, offset)
+        A1 = - self.height
+        B1 = - self.width
+        C1 = self.x * self.height + self.y * self.width
+        A2 = self.height
+        B2 = self.width
+        C2 = - self.x * self.height + self.y * self.width
+        Ro1 = abs(A1 * x.torped + B1 * y.torped + C1)/sqrt(A1**2 + B1**2 + C1**2)
+        Ro2 = abs(21 * x.torped + 21 * y.torped + C2) / sqrt(A2 ** 2 + B2 ** 2 + C2 ** 2)
+        if (Ro1 <= self.width / 2) and (Ro2 <= self.hieght / 2):
+            return True
+
+
+
 
 
 
