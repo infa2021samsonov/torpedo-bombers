@@ -84,4 +84,3 @@ class Gameplay:
             pygame.draw.rect(screen, (255, 255, 255), (x + (l - (player.gameXP / player.maxXP) * l), y, (player.gameXP / player.maxXP) * l, a))
 
 
-

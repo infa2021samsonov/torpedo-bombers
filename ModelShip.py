@@ -22,6 +22,7 @@ MASS = [1000, 2000, 3000]
 class GameShip:
     def __init__(self, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
                  quantity_of_torpeds, recharge_time):
+        self.name = 'IOWA'
         self.maxXP = maxXP
         self.m = choice(MASS)
         self.b = 0.01
@@ -42,7 +43,6 @@ class GameShip:
         self.dt = 0.1
         self.kw = False
         self.ks = False
-
         self.ka = False
         self.kd = False
         self.kshift = False
@@ -117,6 +117,7 @@ class GameShip:
             self.kshift = False
 
     def fire_torped(self, torp_arr, now_t):
+        h = 10
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
 
         all_tubes_empty = True
@@ -128,7 +129,7 @@ class GameShip:
         if not(all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x, self.y, self.alpha, 10)
+            torp = Torped(self.x + int(h*math.cos(self.alpha)), self.y + int(h*math.sin(self.alpha)), self.alpha, 10)
             torp_arr.append(torp)
 
     # add mask collision no effect on other code

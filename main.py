@@ -1,6 +1,7 @@
 import pygame
 from gameplay import *
 from pygame.gfxdraw import *
+from GameRes import *
 from Menu import *
 from gameplay import *
 from ModelShip import *
@@ -29,7 +30,7 @@ gameplay_screen = Gameplay(Left_player, Right_player)
 menu = Mainmenu()
 choseShipLeft = Choose_Ship_pl1(menu)
 choseShipRight = Choose_Ship_pl2(menu)
-# Экран меню Андрея
+results = Game_res("jjsj", True)
 
 
 while not finished:
@@ -65,6 +66,31 @@ while not finished:
             gameplay_screen.leftPl.collision(torpedo)
             gameplay_screen.rightPl.collision(torpedo)
 
+        if gameplay_screen.leftPl.gameXP < 0:
+            screen_type = 'results'
+            results.win_game = True
+            results.winner_name = gameplay_screen.leftPl.name
+            gameplay_screen.time = 0
+            play_win_music()
+
+        if gameplay_screen.rightPl.gameXP < 0:
+            screen_type = 'results'
+            results.win_game = True
+            results.winner_name = gameplay_screen.rightPl
+            gameplay_screen.time = 0
+            play_win_music()
+
+        if gameplay_screen.time < 0:
+            screen_type = 'results'
+            results.win_game = False
+            play_win_music()
+
+    if screen_type == 'results':
+        gameplay_screen.time -= 1
+        if gameplay_screen.time >= -10 * FPS:
+            results.draw(screen)
+        else:
+            screen_type = 'menu'
 
 
     clock.tick(FPS)
