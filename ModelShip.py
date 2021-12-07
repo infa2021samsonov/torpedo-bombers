@@ -21,10 +21,9 @@ MASS = [1000, 2000, 3000]
 
 
 class GameShip:
-    def __init__(self, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, DeltaAlfa, DeltaAlfaShtrih, dt, maxXP,
+    def __init__(self, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
                  quantity_of_torpeds, recharge_time):
-        self.DeltaAlfa = 0
-        self.DeltaAlfaShtrih = 0
+        self.name = 'hhj'
         self.maxXP = maxXP
         self.m = choice(MASS)
         self.b = 0.01
@@ -128,6 +127,7 @@ class GameShip:
 
 
     def fire_torped(self, torp_arr, now_t):
+        h = 10
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
 
         all_tubes_empty = True
@@ -139,7 +139,7 @@ class GameShip:
         if not(all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x, self.y, self.alpha, 10)
+            torp = Torped(self.x + h*math.cos(self.alpha), self.y + h*math.sin(self.alpha), self.alpha, 10)
             torp_arr.append(torp)
 
     # add mask collision no effect on other code
@@ -147,6 +147,6 @@ class GameShip:
         ship_mask = pygame.mask.from_surface(self.new_image)
         offset = (int(self.x-torpedo.x), int(self.y-torpedo.y))
         collide = torpedo.mask.overlap(ship_mask, offset)
-        if collide:
-            print(offset, collide)
+
+
 

@@ -107,7 +107,7 @@ while not finished:
                     if event.key == pygame.K_RETURN:
                         menu.START_KEY = True
                         screen_type = 'gameplay'
-                        gameplay_screen.time = 300 * FPS
+                        gameplay_screen.time = 10 * FPS
                         print("hi")
                     if event.key == pygame.K_BACKSPACE:
                         menu.BACK_KEY = True
@@ -126,7 +126,7 @@ while not finished:
 
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_t:
                     screen_type = 'gameplay'
-                    gameplay_screen.time = 300*FPS
+                    gameplay_screen.time = 10*FPS
 
             if screen_type == 'gameplay':
                 gameplay_screen.leftPl.keyinput(event)
