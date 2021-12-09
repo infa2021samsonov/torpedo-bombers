@@ -41,7 +41,7 @@ class Gameplay:
             self.torpeds[i].moveTorped()
             screen.blit(self.torpeds[i].new_image, (self.torpeds[i].x, self.torpeds[i].y))
 
-    def drawTorpedIndicators(self, screen, player: GameShip, left_or_right):
+    def drawTorpedIndicators(self, screen, player, left_or_right):
         x = 0
         y = 0
         a = 38
@@ -68,7 +68,7 @@ class Gameplay:
             screen.blit(new_image, (x + 0.14 * a, y + 0.12 * a))
             x = x + (a + gap)
 
-    def drawXP(self, screen, player: GameShip, left_or_right):
+    def drawXP(self, screen, player, left_or_right):
         x = 0
         y = 80
         gap = 15

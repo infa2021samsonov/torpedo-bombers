@@ -50,7 +50,7 @@ class GameShipLeft:
         self.ks = False
         self.ka = False
         self.kd = False
-        self.kshift = False
+        self.klshift = False
         # Количество торпедных аппаратов у данного корабля и время их перезарядки
         self.quantity_of_torpeds = quantity_of_torpeds
         self.recharge_time = recharge_time
@@ -61,7 +61,7 @@ class GameShipLeft:
         # это сделано Сомом для отображения
 
 
-    def keyinputLeft(self, event):
+    def keyinput(self, event):
         if event.type == pygame.KEYDOWN:
 
             if event.key == pygame.K_w:
@@ -73,7 +73,7 @@ class GameShipLeft:
             if event.key == pygame.K_d:
                 self.kd = True
             if event.key == pygame.K_LSHIFT:
-                self.kshift = True
+                self.klshift = True
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_w:
@@ -85,7 +85,7 @@ class GameShipLeft:
             if event.key == pygame.K_d:
                 self.kd = False
             if event.key == pygame.K_LSHIFT:
-                self.kshift = False
+                self.klshift = False
 
     def DrawShip(self, screen):
         self.new_image = pygame.transform.rotate(self.new_image_0, (self.alpha + pi/2) * 360 * (2 * math.pi) ** -1)
@@ -121,8 +121,8 @@ class GameShipLeft:
             self.alpha = self.alpha + self.omega * self.dt
         if (self.kd == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
             self.alpha = self.alpha - self.omega * self.dt
-        if self.kshift == True:
-            self.kshift = False
+        if self.klshift == True:
+            self.klshift = False
 
 
     def fire_torped(self, torp_arr, now_t):
@@ -160,7 +160,7 @@ class GameShipLeft:
         return answer
 
 
-class GameShip:
+class GameShipRight:
     def __init__(self, name, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
                  quantity_of_torpeds, recharge_time):
         self.name = 'IOWA'
@@ -187,11 +187,11 @@ class GameShip:
         self.F = choice(FORCE)
         self.TF = choice(TURNFORCE)
         self.dt = 0.1
-        self.kw = False
-        self.ks = False
-        self.ka = False
-        self.kd = False
-        self.kshift = False
+        self.ki = False
+        self.kk = False
+        self.kj = False
+        self.kl = False
+        self.krshift = False
         # Количество торпедных аппаратов у данного корабля и время их перезарядки
         self.quantity_of_torpeds = quantity_of_torpeds
         self.recharge_time = recharge_time
@@ -205,28 +205,28 @@ class GameShip:
     def keyinput(self, event):
         if event.type == pygame.KEYDOWN:
 
-            if event.key == pygame.K_w:
-                self.kw = True
-            if event.key == pygame.K_s:
-                self.ks = True
-            if event.key == pygame.K_a:
-                self.ka = True
-            if event.key == pygame.K_d:
-                self.kd = True
-            if event.key == pygame.K_LSHIFT:
-                self.kshift = True
+            if event.key == pygame.K_i:
+                self.ki = True
+            if event.key == pygame.K_k:
+                self.kk = True
+            if event.key == pygame.K_j:
+                self.kj = True
+            if event.key == pygame.K_l:
+                self.kl = True
+            if event.key == pygame.K_RSHIFT:
+                self.krshift = True
 
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_w:
-                self.kw = False
-            if event.key == pygame.K_s:
-                self.ks = False
-            if event.key == pygame.K_a:
-                self.ka = False
-            if event.key == pygame.K_d:
-                self.kd = False
-            if event.key == pygame.K_LSHIFT:
-                self.kshift = False
+            if event.key == pygame.K_i:
+                self.ki = False
+            if event.key == pygame.K_k:
+                self.kk = False
+            if event.key == pygame.K_j:
+                self.kj = False
+            if event.key == pygame.K_l:
+                self.kl = False
+            if event.key == pygame.K_RSHIFT:
+                self.krshift = False
 
     def DrawShip(self, screen):
         self.new_image = pygame.transform.rotate(self.new_image_0, (self.alpha + pi/2) * 360 * (2 * math.pi) ** -1)
@@ -237,7 +237,7 @@ class GameShip:
 
 
     def Move(self, torp_arr):
-        if self.kw == True:
+        if self.ki == True:
             if abs(self.Vx) <= self.Vxmax and abs(self.Vy) <= self.Vymax:
                 self.Vx = self.Vx - self.a * math.sin(self.alpha + pi) * self.dt
                 self.Vy = self.Vy - self.a * math.cos(self.alpha + pi) * self.dt
@@ -246,7 +246,7 @@ class GameShip:
             else:
                 self.x = self.x - self.Vmax * math.sin(self.alpha) * self.dt
                 self.y = self.y - self.Vmax * math.cos(self.alpha) * self.dt
-        if self.ks == True:
+        if self.kk == True:
             if abs(self.Vx) <= self.Vxmax and abs(self.Vy) <= self.Vymax:
                 self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
                 self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
@@ -258,12 +258,12 @@ class GameShip:
 
 
 
-        if (self.ka == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
+        if (self.kj == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
             self.alpha = self.alpha + self.omega * self.dt
-        if (self.kd == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
+        if (self.kl == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
             self.alpha = self.alpha - self.omega * self.dt
-        if self.kshift == True:
-            self.kshift = False
+        if self.krshift == True:
+            self.krshift = False
 
 
     def fire_torped(self, torp_arr, now_t):
