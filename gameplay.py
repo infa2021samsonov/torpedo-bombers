@@ -1,6 +1,5 @@
 import os
 import sys
-
 from Torped_classes import *
 import pygame
 from ModelShip import *
@@ -13,16 +12,16 @@ class Gameplay:
         self.time = 0
         pygame.font.init()
         # Экземпляры кораблей,  свойства которых надо устанавливать при нажатии Play
-        self.leftPl: GameShip = pl1
-        self.rightPl: GameShip = pl2
+        self.leftPl: GameShipLeft = pl1
+        self.rightPl: GameShipRight = pl2
         self.font1 = pygame.font.SysFont('Rockwell', 60)
         self.font2 = pygame.font.SysFont('Rockwell', 60)
 
     def drawInfo(self, screen):
         gap = 15
-        red_name_lable = self.font2.render("Bismark", True, (255, 255, 255), None)
+        red_name_lable = self.font2.render(self.leftPl.name, True, (255, 255, 255), None)
         screen.blit(red_name_lable, (gap, gap))
-        green_name_lable = self.font2.render("Iowa", True, (255, 255, 255), None)
+        green_name_lable = self.font2.render(self.rightPl.name, True, (255, 255, 255), None)
         screen.blit(green_name_lable, (1600 - gap - green_name_lable.get_width(), gap))
 
     def drawTime(self, screen):
@@ -38,8 +37,31 @@ class Gameplay:
 
     def drawTorpeds(self, screen):
         for i in range(0, len(self.torpeds)):
-            self.torpeds[i].moveTorped()
-            screen.blit(self.torpeds[i].new_image, (self.torpeds[i].x, self.torpeds[i].y))
+            if self.torpeds[i].hit:
+                if self.torpeds[i].k <= 25:
+                    if (self.torpeds[i].hit_time - self.time) % 7 == 0:
+                        self.torpeds[i].k += 1
+                    path = os.path.abspath(os.path.dirname(sys.argv[0]))
+                    image = pygame.image.load(path + '/Boompict/' + str(self.torpeds[i].k) + ".png").convert_alpha()
+                    image = pygame.transform.scale(image, (int(image.get_width() * 0.3), int(image.get_height() * 0.3)))
+                    screen.blit(image, (self.torpeds[i].x - image.get_width()/2, self.torpeds[i].y - image.get_height()/2))
+            else:
+                self.torpeds[i].moveTorped()
+                screen.blit(self.torpeds[i].new_image, (self.torpeds[i].x, self.torpeds[i].y))
+
+                if self.leftPl.collision(self.torpeds[i]):
+                    #строка для уменьшения ХP
+                    self.torpeds[i].hit = True
+                    self.torpeds[i].just_hit = True
+                    self.torpeds[i].hit_time = self.time
+                    print("попало в левого")
+
+                if self.rightPl.collision(self.torpeds[i]):
+                    #строка для уменьшения ХP
+                    self.torpeds[i].hit = True
+                    self.torpeds[i].just_hit = True
+                    self.torpeds[i].hit_time = self.time
+                    print("попало в правого")
 
     def drawTorpedIndicators(self, screen, player, left_or_right):
         x = 0
@@ -83,4 +105,16 @@ class Gameplay:
             pygame.draw.rect(screen, (160, 160, 160), (x, y, l, a))
             pygame.draw.rect(screen, (255, 255, 255), (x + (l - (player.gameXP / player.maxXP) * l), y, (player.gameXP / player.maxXP) * l, a))
 
+    def reset(self):
+        self.torpeds.clear()
+        self.time = 0
+        self.leftPl.torped_tubes.clear()
+        self.rightPl.torped_tubes.clear()
 
+def play_boom(arr):
+    for i in range(0,len(arr)):
+        if arr[i].just_hit:
+            arr[i].just_hit = False
+            path = os.path.abspath(os.path.dirname(sys.argv[0]))
+            pygame.mixer.music.load(path + '/Boom.mp3')
+            pygame.mixer.music.play()

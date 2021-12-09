@@ -22,7 +22,7 @@ clock = pygame.time.Clock()
 finished = False
 
 # Это над для создания класса геймплея - не трогать и не смотреть
-Left_player = GameShipLeft(0,0,0,0,0,0,0,0,0,0,0,0,0, (0,0,0),10,10,0.01, 4, 10*60, 1,10*60)
+Left_player = GameShipLeft(0, 0, 0,0,0,0,0,0,0,0,0,0,0, (0,0,0),10,10,0.01, 4, 10*60, 1,10*60)
 Right_player = GameShipRight(0,0,0,0,0,0,0,0,0,0,0,0,0, (0,0,0),10,10,0.01, 4, 20*60, 3,10*60)
 
 # создание классов игровых экранов - меню и и геймплея
@@ -60,11 +60,7 @@ while not finished:
         gameplay_screen.drawTorpedIndicators(screen, gameplay_screen.rightPl, 'right')
         gameplay_screen.drawXP(screen, gameplay_screen.leftPl, 'left')
         gameplay_screen.drawXP(screen, gameplay_screen.rightPl, 'right')
-
-        # add collision
-        for torpedo in gameplay_screen.torpeds:
-            gameplay_screen.leftPl.collision(torpedo)
-            gameplay_screen.rightPl.collision(torpedo)
+        play_boom(gameplay_screen.torpeds)
 
         if gameplay_screen.leftPl.gameXP < 0:
             screen_type = 'results'
@@ -87,11 +83,10 @@ while not finished:
 
     if screen_type == 'results':
         gameplay_screen.time -= 1
-        if gameplay_screen.time >= -10 * FPS:
+        if gameplay_screen.time >= -5 * FPS:
             results.draw(screen)
         else:
             screen_type = 'menu'
-
 
     clock.tick(FPS)
     pygame.display.update()
