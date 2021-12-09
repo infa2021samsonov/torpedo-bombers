@@ -122,7 +122,7 @@ class GameShipLeft:
 
 
     def fire_torped(self, torp_arr, now_t):
-        h = 10
+        h = 40
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
 
         all_tubes_empty = True
@@ -134,26 +134,43 @@ class GameShipLeft:
         if not(all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x + h*math.cos(self.alpha), self.y + h*math.sin(self.alpha), self.alpha, 10)
+            torp = Torped(self.x + h*math.cos(-self.alpha), self.y + h*math.sin(-self.alpha), -self.alpha, 10)
             torp_arr.append(torp)
 
 
 
 
 
-    def collision(self,torpedo):
-        A1 = - self.height
-        B1 = - self.width
-        C1 = self.x * self.height + self.y * self.width
-        A2 = self.height
-        B2 = self.width
-        C2 = - self.x * self.height + self.y * self.width
-        Ro1 = abs(A1 * torpedo.x + B1 * torpedo.y + C1)/sqrt(A1**2 + B1**2 + C1**2)
-        Ro2 = abs(A2 * torpedo.x + B2 * torpedo.y + C2) / sqrt(A2 ** 2 + B2 ** 2 + C2 ** 2)
-        answer = False
+    def collision(self, torpedo):
+        h = self.height / 2
+
+        w = self.width / 2
+        a = self.alpha
+        fx1 = self.x + h * sin(a)
+        fy1 = self.y - h * cos(a)
+        fx2 = self.x - h * sin(a)
+        fy2 = self.y + h * cos(a)
+        gx1 = self.x - w * cos(a)
+        gy1 = self.y - w * sin(a)
+        gx2 = self.x + w * cos(a)
+        gy2 = self.y + w * sin(a)
+        A1 = fy1 - fy2
+        B1 = fx2 - fx1
+        C1 = fy2 * fx1 - fx2 * fy1
+
+        A2 = gy1 - gy2
+        B2 = gx2 - gx1
+        C2 = gy2 * gx1 - gx2 * gy1
+        Ro1 = abs(A1 * torpedo.x + B1 * torpedo.y + C1) / sqrt(A1 ** 2 + B1 ** 2)
+        Ro2 = abs(A2 * torpedo.x + B2 * torpedo.y + C2) / sqrt(A2 ** 2 + B2 ** 2)
+        ans = False
+        print(torpedo.x, torpedo.y)
+        print(self.x, self.y)
+        print(self.alpha)
+        print(Ro1, Ro2)
         if (Ro1 <= 21 / 2) and (Ro2 <= 156 / 2):
-            answer = True
-        return answer
+            ans = True
+        return ans
 
 
 class GameShipRight:
@@ -253,7 +270,7 @@ class GameShipRight:
 
 
     def fire_torped(self, torp_arr, now_t):
-        h = 10
+        h = 40
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
 
         all_tubes_empty = True
@@ -265,21 +282,36 @@ class GameShipRight:
         if not(all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x + h*math.cos(self.alpha), self.y + h*math.sin(self.alpha), self.alpha, 10)
+            torp = Torped(self.x + h*math.cos(-self.alpha), self.y + h*math.sin(-self.alpha), -self.alpha, 10)
             torp_arr.append(torp)
 
+    def collision(self, torpedo):
+        h = self.height / 2
 
+        w = self.width / 2
+        a = self.alpha
+        fx1 = self.x + h * sin(a)
+        fy1 = self.y - h * cos(a)
+        fx2 = self.x - h * sin(a)
+        fy2 = self.y + h * cos(a)
+        gx1 = self.x - w * cos(a)
+        gy1 = self.y - w * sin(a)
+        gx2 = self.x + w * cos(a)
+        gy2 = self.y + w * sin(a)
+        A1 = fy1 - fy2
+        B1 = fx2 - fx1
+        C1 = fy2 * fx1 - fx2 * fy1
 
-
-
-    def collision(self,torpedo):
-        A1 = - self.height
-        B1 = - self.width
-        C1 = self.x * self.height + self.y * self.width
-        A2 = self.height
-        B2 = self.width
-        C2 = - self.x * self.height + self.y * self.width
-        Ro1 = abs(A1 * torpedo.x + B1 * torpedo.y + C1)/sqrt(A1**2 + B1**2 + C1**2)
-        Ro2 = abs(A2 * torpedo.x + B2 * torpedo.y + C2) / sqrt(A2 ** 2 + B2 ** 2 + C2 ** 2)
+        A2 = gy1 - gy2
+        B2 = gx2 - gx1
+        C2 = gy2 * gx1 - gx2 * gy1
+        Ro1 = abs(A1 * torpedo.x + B1 * torpedo.y + C1) / sqrt(A1 ** 2 + B1 ** 2)
+        Ro2 = abs(A2 * torpedo.x + B2 * torpedo.y + C2) / sqrt(A2 ** 2 + B2 ** 2)
+        ans = False
+        print(torpedo.x, torpedo.y)
+        print(self.x, self.y)
+        print(self.alpha)
+        print(Ro1, Ro2)
         if (Ro1 <= 21 / 2) and (Ro2 <= 156 / 2):
-            return True
+            ans = True
+        return ans
