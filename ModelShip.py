@@ -48,7 +48,6 @@ class GameShip:
         self.dt = 0.1
         self.kw = False
         self.ks = False
-
         self.ka = False
         self.kd = False
         self.kshift = False
@@ -103,6 +102,7 @@ class GameShip:
                 self.Vy = self.Vy - self.a * math.cos(self.alpha + pi) * self.dt
                 self.x = self.x - self.Vx * self.dt
                 self.y = self.y - self.Vy * self.dt
+                print(self.height, self.width)
             else:
                 self.x = self.x - self.Vmax * math.sin(self.alpha) * self.dt
                 self.y = self.y - self.Vmax * math.cos(self.alpha) * self.dt
@@ -120,7 +120,6 @@ class GameShip:
 
         if (self.ka == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
             self.alpha = self.alpha + self.omega * self.dt
-            print(self.Vx**2 + self.Vy**2)
         if (self.kd == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
             self.alpha = self.alpha - self.omega * self.dt
         if self.kshift == True:
@@ -155,8 +154,8 @@ class GameShip:
         B2 = self.width
         C2 = - self.x * self.height + self.y * self.width
         Ro1 = abs(A1 * torpedo.x + B1 * torpedo.y + C1)/sqrt(A1**2 + B1**2 + C1**2)
-        Ro2 = abs(21 * torpedo.x + 21 * torpedo.y + C2) / sqrt(A2 ** 2 + B2 ** 2 + C2 ** 2)
-        if (Ro1 <= self.width / 2) and (Ro2 <= self.hieght / 2):
+        Ro2 = abs(A2 * torpedo.x + B2 * torpedo.y + C2) / sqrt(A2 ** 2 + B2 ** 2 + C2 ** 2)
+        if (Ro1 <= 21 / 2) and (Ro2 <= 156 / 2):
             return True
 
 
