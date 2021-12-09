@@ -7,6 +7,7 @@ import pygame
 class Torped:
 
     def __init__(self, x, y, alpha, v):
+        self.just_hit = False
         self.k = 1
         self.hit = False
         self.hit_time = 0

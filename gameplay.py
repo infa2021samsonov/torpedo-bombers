@@ -1,6 +1,5 @@
 import os
 import sys
-
 from Torped_classes import *
 import pygame
 from ModelShip import *
@@ -53,16 +52,16 @@ class Gameplay:
                 if self.leftPl.collision(self.torpeds[i]):
                     #строка для уменьшения ХP
                     self.torpeds[i].hit = True
+                    self.torpeds[i].just_hit = True
                     self.torpeds[i].hit_time = self.time
                     print("попало в левого")
 
                 if self.rightPl.collision(self.torpeds[i]):
                     #строка для уменьшения ХP
                     self.torpeds[i].hit = True
+                    self.torpeds[i].just_hit = True
                     self.torpeds[i].hit_time = self.time
                     print("попало в правого")
-
-
 
     def drawTorpedIndicators(self, screen, player, left_or_right):
         x = 0
@@ -112,3 +111,10 @@ class Gameplay:
         self.leftPl.torped_tubes.clear()
         self.rightPl.torped_tubes.clear()
 
+def play_boom(arr):
+    for i in range(0,len(arr)):
+        if arr[i].just_hit:
+            arr[i].just_hit = False
+            path = os.path.abspath(os.path.dirname(sys.argv[0]))
+            pygame.mixer.music.load(path + '/Boom.mp3')
+            pygame.mixer.music.play()
