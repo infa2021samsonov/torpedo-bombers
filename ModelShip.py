@@ -95,32 +95,26 @@ class GameShipLeft:
 
 
 
+
     def Move(self, torp_arr):
+        self.x = self.x - self.Vx * self.dt
+        self.y = self.y - self.Vy * self.dt
         if self.kw == True:
-            if abs(self.Vx) <= self.Vxmax and abs(self.Vy) <= self.Vymax:
-                self.Vx = self.Vx - self.a * math.sin(self.alpha + pi) * self.dt
-                self.Vy = self.Vy - self.a * math.cos(self.alpha + pi) * self.dt
-                self.x = self.x - self.Vx * self.dt
-                self.y = self.y - self.Vy * self.dt
-            else:
-                self.x = self.x - self.Vmax * math.sin(self.alpha) * self.dt
-                self.y = self.y - self.Vmax * math.cos(self.alpha) * self.dt
+            self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
+            self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
         if self.ks == True:
-            if abs(self.Vx) <= self.Vxmax and abs(self.Vy) <= self.Vymax:
-                self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
-                self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
-                self.x = self.x + self.Vx * self.dt
-                self.y = self.y + self.Vy * self.dt
-            else:
-                self.x = self.x + self.Vmax * math.sin(self.alpha) * self.dt
-                self.y = self.y + self.Vmax * math.cos(self.alpha) * self.dt
+            self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
+            self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
 
 
-
-        if (self.ka == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
+        if (self.ka == True):
             self.alpha = self.alpha + self.omega * self.dt
-        if (self.kd == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
+            self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(self.omega * self.dt)
+            self.Vy =  - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
+        if (self.kd == True):
             self.alpha = self.alpha - self.omega * self.dt
+            self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin( - self.omega * self.dt)
+            self.Vy = - self.Vx * math.sin( - self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
         if self.klshift == True:
             self.klshift = False
 
