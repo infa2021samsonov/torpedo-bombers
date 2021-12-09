@@ -61,11 +61,6 @@ while not finished:
         gameplay_screen.drawXP(screen, gameplay_screen.leftPl, 'left')
         gameplay_screen.drawXP(screen, gameplay_screen.rightPl, 'right')
 
-        # add collision
-        for torpedo in gameplay_screen.torpeds:
-            gameplay_screen.leftPl.collision(torpedo)
-            gameplay_screen.rightPl.collision(torpedo)
-
         if gameplay_screen.leftPl.gameXP < 0:
             screen_type = 'results'
             results.win_game = True
