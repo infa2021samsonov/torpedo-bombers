@@ -108,10 +108,12 @@ class GameShipLeft:
 
 
         if ((self.ka == True) and ((self.Vx**2 + self.Vy**2) > 10)):
+
             self.alpha = self.alpha + self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(self.omega * self.dt)
             self.Vy =  - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
         if ((self.kd == True) and ((self.Vx**2 + self.Vy**2) > 10)):
+
             self.alpha = self.alpha - self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin( - self.omega * self.dt)
             self.Vy = - self.Vx * math.sin( - self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
@@ -166,7 +168,7 @@ class GameShipRight:
         self.maxXP = maxXP
         self.m = choice(MASS)
         self.b = 0.01
-        self.x = 100
+        self.x = 1500
         self.y = 800
         self.alpha = 0
         self.Vx = 0
@@ -228,34 +230,24 @@ class GameShipRight:
         circle(screen, (255,0,0), (self.x, self.y), 10)
         pass
 
-
-
     def Move(self, torp_arr):
+        self.x = self.x - self.Vx * self.dt
+        self.y = self.y - self.Vy * self.dt
         if self.ki == True:
-            if abs(self.Vx) <= self.Vxmax and abs(self.Vy) <= self.Vymax:
-                self.Vx = self.Vx - self.a * math.sin(self.alpha + pi) * self.dt
-                self.Vy = self.Vy - self.a * math.cos(self.alpha + pi) * self.dt
-                self.x = self.x - self.Vx * self.dt
-                self.y = self.y - self.Vy * self.dt
-            else:
-                self.x = self.x - self.Vmax * math.sin(self.alpha) * self.dt
-                self.y = self.y - self.Vmax * math.cos(self.alpha) * self.dt
+            self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
+            self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
         if self.kk == True:
-            if abs(self.Vx) <= self.Vxmax and abs(self.Vy) <= self.Vymax:
-                self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
-                self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
-                self.x = self.x + self.Vx * self.dt
-                self.y = self.y + self.Vy * self.dt
-            else:
-                self.x = self.x + self.Vmax * math.sin(self.alpha) * self.dt
-                self.y = self.y + self.Vmax * math.cos(self.alpha) * self.dt
+            self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
+            self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
 
-
-
-        if (self.kj == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
+        if ((self.kj == True) and ((self.Vx ** 2 + self.Vy ** 2) > 10)):
             self.alpha = self.alpha + self.omega * self.dt
-        if (self.kl == True) and (((self.Vx)**2 + (self.Vy)**2) != 0):
+            self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(self.omega * self.dt)
+            self.Vy = - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
+        if ((self.kl == True) and ((self.Vx ** 2 + self.Vy ** 2) > 10)):
             self.alpha = self.alpha - self.omega * self.dt
+            self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(- self.omega * self.dt)
+            self.Vy = - self.Vx * math.sin(- self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
         if self.krshift == True:
             self.krshift = False
 
