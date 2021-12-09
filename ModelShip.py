@@ -107,11 +107,11 @@ class GameShipLeft:
             self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
 
 
-        if (self.ka == True):
+        if ((self.ka == True) and ((self.Vx**2 + self.Vy**2) > 10)):
             self.alpha = self.alpha + self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(self.omega * self.dt)
             self.Vy =  - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
-        if (self.kd == True):
+        if ((self.kd == True) and ((self.Vx**2 + self.Vy**2) > 10)):
             self.alpha = self.alpha - self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin( - self.omega * self.dt)
             self.Vy = - self.Vx * math.sin( - self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
