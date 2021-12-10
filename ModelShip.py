@@ -13,7 +13,7 @@ StartXP = [100, 200, 300]
 
 RED = 0xFF0000
 GREEN = 0x00FF00
-
+print()
 COLOR = [RED, GREEN]
 FORCE = [100, 200, 300]
 TURNFORCE = [10, 20, 30]
@@ -60,7 +60,6 @@ class GameShipLeft:
             self.torped_tubes.append(300 * 60)
         # это сделано Сомом для отображения
 
-
     def keyinput(self, event):
         if event.type == pygame.KEYDOWN:
 
@@ -90,11 +89,7 @@ class GameShipLeft:
     def DrawShip(self, screen):
         self.new_image = pygame.transform.rotate(self.new_image_0, (self.alpha + pi/2) * 360 * (2 * math.pi) ** -1)
         screen.blit(self.new_image, (self.x - self.new_image.get_width()/2, self.y - self.new_image.get_height()/2))
-        circle(screen, (255,0,0), (self.x, self.y), 10)
         pass
-
-
-
 
     def Move(self, torp_arr):
         self.x = self.x - self.Vx * self.dt
@@ -120,7 +115,6 @@ class GameShipLeft:
         if self.klshift == True:
             self.klshift = False
 
-
     def fire_torped(self, torp_arr, now_t):
         h = 40
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
@@ -131,29 +125,25 @@ class GameShipLeft:
                 all_tubes_empty = False
                 self.torped_tubes[i] = now_t
                 break
-        if not(all_tubes_empty):
+        if not (all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x + h*math.cos(-self.alpha), self.y + h*math.sin(-self.alpha), -self.alpha, 10)
+            torp = Torped(self.x + h * math.cos(self.alpha), self.y - h * math.sin(self.alpha), self.alpha, 10)
             torp_arr.append(torp)
-
-
-
-
 
     def collision(self, torpedo):
         h = self.height / 2
 
         w = self.width / 2
-        a = self.alpha
-        fx1 = self.x + h * sin(a)
-        fy1 = self.y - h * cos(a)
-        fx2 = self.x - h * sin(a)
-        fy2 = self.y + h * cos(a)
-        gx1 = self.x - w * cos(a)
-        gy1 = self.y - w * sin(a)
-        gx2 = self.x + w * cos(a)
-        gy2 = self.y + w * sin(a)
+        a = -self.alpha
+        fx1 = self.x + w * sin(a)
+        fy1 = self.y - w * cos(a)
+        fx2 = self.x - w * sin(a)
+        fy2 = self.y + w * cos(a)
+        gx1 = self.x - h * cos(a)
+        gy1 = self.y - h * sin(a)
+        gx2 = self.x + h * cos(a)
+        gy2 = self.y + h * sin(a)
         A1 = fy1 - fy2
         B1 = fx2 - fx1
         C1 = fy2 * fx1 - fx2 * fy1
@@ -164,11 +154,7 @@ class GameShipLeft:
         Ro1 = abs(A1 * torpedo.x + B1 * torpedo.y + C1) / sqrt(A1 ** 2 + B1 ** 2)
         Ro2 = abs(A2 * torpedo.x + B2 * torpedo.y + C2) / sqrt(A2 ** 2 + B2 ** 2)
         ans = False
-        print(torpedo.x, torpedo.y)
-        print(self.x, self.y)
-        print(self.alpha)
-        print(Ro1, Ro2)
-        if (Ro1 <= 21 / 2) and (Ro2 <= 156 / 2):
+        if (Ro1 <= h) and (Ro2 <= w):
             ans = True
         return ans
 
@@ -214,7 +200,6 @@ class GameShipRight:
             self.torped_tubes.append(300 * 60)
         # это сделано Сомом для отображения
 
-
     def keyinput(self, event):
         if event.type == pygame.KEYDOWN:
 
@@ -244,7 +229,6 @@ class GameShipRight:
     def DrawShip(self, screen):
         self.new_image = pygame.transform.rotate(self.new_image_0, (self.alpha + pi/2) * 360 * (2 * math.pi) ** -1)
         screen.blit(self.new_image, (self.x - self.new_image.get_width()/2, self.y - self.new_image.get_height()/2))
-        circle(screen, (255,0,0), (self.x, self.y), 10)
         pass
 
     def Move(self, torp_arr):
@@ -268,7 +252,6 @@ class GameShipRight:
         if self.krshift == True:
             self.krshift = False
 
-
     def fire_torped(self, torp_arr, now_t):
         h = 40
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
@@ -282,22 +265,22 @@ class GameShipRight:
         if not(all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x + h*math.cos(-self.alpha), self.y + h*math.sin(-self.alpha), -self.alpha, 10)
+            torp = Torped(self.x + h*math.cos(self.alpha), self.y - h*math.sin(self.alpha), self.alpha, 10)
             torp_arr.append(torp)
 
     def collision(self, torpedo):
         h = self.height / 2
 
         w = self.width / 2
-        a = self.alpha
-        fx1 = self.x + h * sin(a)
-        fy1 = self.y - h * cos(a)
-        fx2 = self.x - h * sin(a)
-        fy2 = self.y + h * cos(a)
-        gx1 = self.x - w * cos(a)
-        gy1 = self.y - w * sin(a)
-        gx2 = self.x + w * cos(a)
-        gy2 = self.y + w * sin(a)
+        a = -self.alpha
+        fx1 = self.x + w * sin(a)
+        fy1 = self.y - w * cos(a)
+        fx2 = self.x - w * sin(a)
+        fy2 = self.y + w * cos(a)
+        gx1 = self.x - h * cos(a)
+        gy1 = self.y - h * sin(a)
+        gx2 = self.x + h * cos(a)
+        gy2 = self.y + h * sin(a)
         A1 = fy1 - fy2
         B1 = fx2 - fx1
         C1 = fy2 * fx1 - fx2 * fy1
@@ -308,10 +291,6 @@ class GameShipRight:
         Ro1 = abs(A1 * torpedo.x + B1 * torpedo.y + C1) / sqrt(A1 ** 2 + B1 ** 2)
         Ro2 = abs(A2 * torpedo.x + B2 * torpedo.y + C2) / sqrt(A2 ** 2 + B2 ** 2)
         ans = False
-        print(torpedo.x, torpedo.y)
-        print(self.x, self.y)
-        print(self.alpha)
-        print(Ro1, Ro2)
-        if (Ro1 <= 21 / 2) and (Ro2 <= 156 / 2):
+        if (Ro1 <= h) and (Ro2 <= w):
             ans = True
         return ans

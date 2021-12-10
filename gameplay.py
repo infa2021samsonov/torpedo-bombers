@@ -47,7 +47,7 @@ class Gameplay:
                     screen.blit(image, (self.torpeds[i].x - image.get_width()/2, self.torpeds[i].y - image.get_height()/2))
             else:
                 self.torpeds[i].moveTorped()
-                screen.blit(self.torpeds[i].new_image, (self.torpeds[i].x, self.torpeds[i].y))
+                screen.blit(self.torpeds[i].new_image, (self.torpeds[i].x - self.torpeds[i].w/2, self.torpeds[i].y - self.torpeds[i].h/2))
 
                 if self.leftPl.collision(self.torpeds[i]):
                     #строка для уменьшения ХP
