@@ -3,6 +3,7 @@ import sys
 
 import pygame
 
+import ModelShip
 
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
@@ -72,8 +73,8 @@ class Mainmenu():
         :return:
         '''
         self.draw_text(screen, 'MAIN MENU', 60, self.mid_w, 60, WHITE)
-        self.draw_text(screen, 'NIGGER 1', 30, self.player1x, self.player1y, RED)
-        self.draw_text(screen, 'NIGGER 2', 30, self.player2x, self.player2y, GREEN)
+        self.draw_text(screen, 'PLAYER 1', 30, self.player1x, self.player1y, RED)
+        self.draw_text(screen, 'PLAYER 2', 30, self.player2x, self.player2y, GREEN)
         self.draw_text(screen, 'PRESS ''ENTER'' TO START THE GAME', 50, self.startx, self.starty, WHITE)
 
     def setShips(self, state):
@@ -105,13 +106,13 @@ class Choose_Ship_pl1():
             if self.state == 'Bismark':
                 self.state = 'Yamato'
             elif self.state == 'Yamato':
-                self.state = 'Iowa'
-            elif self.state == 'Iowa':
+                self.state = 'IOWA'
+            elif self.state == 'IOWA':
                 self.state = 'Bismark'
         elif self.mainmenu.UP_KEY1:
             if self.state == 'Bismark':
-                self.state = 'Iowa'
-            elif self.state == 'Iowa':
+                self.state = 'IOWA'
+            elif self.state == 'IOWA':
                 self.state = 'Yamato'
             elif self.state == 'Yamato':
                 self.state = 'Bismark'
@@ -121,17 +122,47 @@ class Choose_Ship_pl1():
     def display_menu(self, screen, state):
         if state == 'Bismark':
             self.mainmenu.draw_text(screen, 'Bismark', 70, self.boatname1_1x, self.boatname1_1y, GOLD)
-            self.mainmenu.draw_text(screen, 'Iowa', 40, self.boatname2_1x, self.boatname2_1y + 15, WHITE)
+            self.mainmenu.draw_text(screen, 'IOWA', 40, self.boatname2_1x, self.boatname2_1y + 15, WHITE)
             self.mainmenu.draw_text(screen, 'Yamato', 40, self.boatname3_1x, self.boatname3_1y + 15, WHITE)
-        elif state == 'Iowa':
+        elif state == 'IOWA':
             self.mainmenu.draw_text(screen, 'Bismark', 40, self.boatname1_1x, self.boatname1_1y - 15, WHITE)
-            self.mainmenu.draw_text(screen, 'Iowa', 70, self.boatname2_1x, self.boatname2_1y , GOLD)
+            self.mainmenu.draw_text(screen, 'IOWA', 70, self.boatname2_1x, self.boatname2_1y , GOLD)
             self.mainmenu.draw_text(screen, 'Yamato', 40, self.boatname3_1x, self.boatname3_1y + 15, WHITE)
         elif state == 'Yamato':
             self.mainmenu.draw_text(screen, 'Bismark', 40, self.boatname1_1x, self.boatname1_1y - 15, WHITE)
-            self.mainmenu.draw_text(screen, 'Iowa', 40, self.boatname2_1x, self.boatname2_1y - 15, WHITE)
+            self.mainmenu.draw_text(screen, 'IOWA', 40, self.boatname2_1x, self.boatname2_1y - 15, WHITE)
             self.mainmenu.draw_text(screen, 'Yamato', 70, self.boatname3_1x, self.boatname3_1y, GOLD)
 
+    def set_ships(self, Lpl, state):
+        global ship
+        if state == 'Bismark':
+            ship = ModelShip.Ship('Bismark', 1000, 0.01, 100, 800, 0, 70.7, 50, 50, 0, 0, 5, 0.1, 500 / 2, 100, 10, 500, 3, 500)
+        if state == 'IOWA':
+            ship = ModelShip.Ship('IOWA', 1000, 0.01, 100, 800, 0, 70.7, 50, 50, 0, 0, 5, 0.1, 500 / 2, 100, 10, 500, 3, 500)
+        if state == 'Yamato':
+            ship = ModelShip.Ship('Yamato', 1000, 0.01, 100, 800, 0, 70.7, 50, 50, 0, 0, 5, 0.1, 500 / 2, 100, 10, 500, 3, 500)
+
+        Lpl.name = ship.name
+        path = os.path.abspath(os.path.dirname(sys.argv[0]))
+        Lpl.image = pygame.image.load(path + '/' + Lpl.name + '_top-removebg-preview.png').convert_alpha()
+        Lpl.new_image_0 = pygame.transform.scale(Lpl.image, (int(Lpl.image.get_width() * 0.15), int(Lpl.image.get_height() * 0.15)))
+        Lpl.m = ship.m
+        Lpl.b = ship.b
+        Lpl.x = ship.x
+        Lpl.y = ship.y
+        Lpl.alpha = ship.alpha
+        Lpl.Vmax = ship.Vmax
+        Lpl.Vxmax = ship.Vxmax
+        Lpl.Vymax = ship.Vymax
+        Lpl.Vx = ship.Vx
+        Lpl.Vy = ship.Vy
+        Lpl.a = ship.a
+        Lpl.omega = ship.omega
+        Lpl.F = ship.F
+        Lpl.TF = ship.TF
+        Lpl.maxXP = ship.maxXP
+        Lpl.quantity_of_torpeds = ship.quantity_of_torpeds
+        Lpl.recharge_time = ship.recharge_time
 
     def display_ship1(self, screen, state):
         '''
@@ -148,7 +179,7 @@ class Choose_Ship_pl1():
             img_with_flip = pygame.transform.flip(new_image_0, True, False)
             self.new_image = pygame.transform.rotate(img_with_flip, 0)
             screen.blit(self.new_image, (self.shippos1x, self.shippos1y))
-        elif state == 'Iowa':
+        elif state == 'IOWA':
             path = os.path.abspath(os.path.dirname(sys.argv[0]))
             image = pygame.image.load(path + '/IOWA_side-removebg-preview.png').convert_alpha()
             new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.22), int(image.get_height() * 0.22)))
@@ -189,19 +220,50 @@ class Choose_Ship_pl2:
         '''
         if self.mainmenu.DOWN_KEY2:
             if self.state == 'Bismark':
-                self.state = 'Iowa'
-            elif self.state == 'Iowa':
+                self.state = 'IOWA'
+            elif self.state == 'IOWA':
                 self.state = 'Yamato'
             elif self.state == 'Yamato':
                 self.state = 'Bismark'
         elif self.mainmenu.UP_KEY2:
             if self.state == 'Bismark':
-                self.state = 'Iowa'
-            elif self.state == 'Iowa':
+                self.state = 'IOWA'
+            elif self.state == 'IOWA':
                 self.state = 'Yamato'
             elif self.state == 'Yamato':
                 self.state = 'Bismark'
         return self.state
+
+    def set_ships(self, Rpl, state):
+        global ship
+        if state == 'Bismark':
+            ship = ModelShip.Ship('Bismark', 1000, 0.01, 1500, 800, 0, 70.7, 50, 50, 0, 0, 5, 0.1, 500 / 2, 100, 10, 500, 3, 500)
+        if state == 'IOWA':
+            ship = ModelShip.Ship('IOWA', 1000, 0.01, 1500, 800, 0, 70.7, 50, 50, 0, 0, 5, 0.1, 500 / 2, 100, 10, 500, 3, 500)
+        if state == 'Yamato':
+            ship = ModelShip.Ship('Yamato', 1000, 0.01, 1500, 800, 0, 70.7, 50, 50, 0, 0, 5, 0.1, 500 / 2, 100, 10, 500, 3, 500)
+
+        Rpl.name = ship.name
+        path = os.path.abspath(os.path.dirname(sys.argv[0]))
+        Rpl.image = pygame.image.load(path + '/' + Rpl.name + '_top-removebg-preview.png').convert_alpha()
+        Rpl.new_image_0 = pygame.transform.scale(Rpl.image, (int(Rpl.image.get_width() * 0.15), int(Rpl.image.get_height() * 0.15)))
+        Rpl.m = ship.m
+        Rpl.b = ship.b
+        Rpl.x = ship.x
+        Rpl.y = ship.y
+        Rpl.alpha = ship.alpha
+        Rpl.Vmax = ship.Vmax
+        Rpl.Vxmax = ship.Vxmax
+        Rpl.Vymax = ship.Vymax
+        Rpl.Vx = ship.Vx
+        Rpl.Vy = ship.Vy
+        Rpl.a = ship.a
+        Rpl.omega = ship.omega
+        Rpl.F = ship.F
+        Rpl.TF = ship.TF
+        Rpl.maxXP = ship.maxXP
+        Rpl.quantity_of_torpeds = ship.quantity_of_torpeds
+        Rpl.recharge_time = ship.recharge_time
 
     def display_menu(self, screen, state):
         '''
@@ -210,15 +272,15 @@ class Choose_Ship_pl2:
         '''
         if state == 'Bismark':
             self.mainmenu.draw_text(screen, 'Bismark', 70, self.boatname1_2x, self.boatname1_2y, GOLD)
-            self.mainmenu.draw_text(screen, 'Iowa', 40, self.boatname2_2x, self.boatname2_2y + 15, WHITE)
+            self.mainmenu.draw_text(screen, 'IOWA', 40, self.boatname2_2x, self.boatname2_2y + 15, WHITE)
             self.mainmenu.draw_text(screen, 'Yamato', 40, self.boatname3_2x, self.boatname3_2y + 15, WHITE)
-        elif state == 'Iowa':
+        elif state == 'IOWA':
             self.mainmenu.draw_text(screen, 'Bismark', 40, self.boatname1_2x, self.boatname1_2y - 15, WHITE)
-            self.mainmenu.draw_text(screen, 'Iowa', 70, self.boatname2_2x, self.boatname2_2y , GOLD)
+            self.mainmenu.draw_text(screen, 'IOWA', 70, self.boatname2_2x, self.boatname2_2y , GOLD)
             self.mainmenu.draw_text(screen, 'Yamato', 40, self.boatname3_2x, self.boatname3_2y + 15, WHITE)
         elif state == 'Yamato':
             self.mainmenu.draw_text(screen, 'Bismark', 40, self.boatname1_2x, self.boatname1_2y - 15, WHITE)
-            self.mainmenu.draw_text(screen, 'Iowa', 40, self.boatname2_2x, self.boatname2_2y - 15, WHITE)
+            self.mainmenu.draw_text(screen, 'IOWA', 40, self.boatname2_2x, self.boatname2_2y - 15, WHITE)
             self.mainmenu.draw_text(screen, 'Yamato', 70, self.boatname3_2x, self.boatname3_2y, GOLD)
 
     def display_ship2(self, screen, state):
@@ -235,7 +297,7 @@ class Choose_Ship_pl2:
             new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.22), int(image.get_height() * 0.22)))
             self.new_image = pygame.transform.rotate(new_image_0, 0)
             screen.blit(self.new_image, (self.shippos2x, self.shippos2y))
-        elif state == 'Iowa':
+        elif state == 'IOWA':
             path = os.path.abspath(os.path.dirname(sys.argv[0]))
             image = pygame.image.load(path + '/IOWA_side-removebg-preview.png').convert_alpha()
             new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.22), int(image.get_height() * 0.22)))
@@ -247,3 +309,5 @@ class Choose_Ship_pl2:
             new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.22), int(image.get_height() * 0.22)))
             self.new_image = pygame.transform.rotate(new_image_0, 0)
             screen.blit(self.new_image, (self.shippos2x, self.shippos2y))
+
+

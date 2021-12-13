@@ -13,7 +13,6 @@ StartXP = [100, 200, 300]
 
 RED = 0xFF0000
 GREEN = 0x00FF00
-print()
 COLOR = [RED, GREEN]
 FORCE = [100, 200, 300]
 TURNFORCE = [10, 20, 30]
@@ -24,8 +23,8 @@ class GameShipLeft:
                  quantity_of_torpeds, recharge_time):
         self.name = 'IOWA'
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
-        image = pygame.image.load(path + '/'+self.name + '_top-removebg-preview.png').convert_alpha()
-        self.new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.15), int(image.get_height() * 0.15)))
+        self.image = pygame.image.load(path + '/'+self.name + '_top-removebg-preview.png').convert_alpha()
+        self.new_image_0 = pygame.transform.scale(self.image, (int(self.image.get_width() * 0.15), int(self.image.get_height() * 0.15)))
         self.height = self.new_image_0.get_height()
         self.width = self.new_image_0.get_width()
         self.maxXP = maxXP
@@ -164,8 +163,8 @@ class GameShipRight:
                  quantity_of_torpeds, recharge_time):
         self.name = 'IOWA'
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
-        image = pygame.image.load(path + '/'+self.name + '_top-removebg-preview.png').convert_alpha()
-        self.new_image_0 = pygame.transform.scale(image, (int(image.get_width() * 0.15), int(image.get_height() * 0.15)))
+        self.image = pygame.image.load(path + '/'+self.name + '_top-removebg-preview.png').convert_alpha()
+        self.new_image_0 = pygame.transform.scale(self.image, (int(self.image.get_width() * 0.15), int(self.image.get_height() * 0.15)))
         self.height = self.new_image_0.get_height()
         self.width = self.new_image_0.get_width()
         self.maxXP = maxXP
@@ -294,3 +293,31 @@ class GameShipRight:
         if (Ro1 <= h) and (Ro2 <= w):
             ans = True
         return ans
+
+
+
+class Ship():
+    def __init__(self, name, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, F, TF, maxXP,
+                 quantity_of_torpeds, recharge_time):
+        self.name = name
+        self.maxXP = maxXP
+        self.m = m
+        self.b = b
+        self.x = x
+        self.y = y
+        self.alpha = alpha
+        self.Vx = Vx
+        self.Vy = Vy
+        self.Vmax = Vmax
+        self.Vxmax = Vxmax
+        self.Vymax = Vymax
+        self.a = a
+        self.omega = omega
+        self.gameXP = gameXP
+        self.F = F
+        self.TF = TF
+        self.quantity_of_torpeds = quantity_of_torpeds
+        self.recharge_time = recharge_time
+
+
+
