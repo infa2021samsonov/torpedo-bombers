@@ -111,6 +111,29 @@ class Gameplay:
         self.leftPl.torped_tubes.clear()
         self.rightPl.torped_tubes.clear()
 
+    def same_orientation(self, player):
+        x1 = -sin(player.alpha)
+        y1 = -cos(player.alpha)
+        x2 = player.Vx
+        y2 = player.Vy
+        return x1*x2 + y1*y2 <=0
+    def drawSpeedIndicators(self, screen, player, left_or_right):
+        x = 0
+        y = 0
+        a = 10
+        b = 20
+        k = 0
+        if left_or_right == "left":
+            x = 100
+            y = 100
+        elif left_or_right == "right":
+            x = 500
+            y = 500
+        if self.same_orientation(player):
+            k = sqrt(player.Vx**2 + player.Vy**2) / sqrt(player.Vxmax**2 + player.Vymax**2)
+            pygame.draw.rect(screen, (160, 160, 160), (x, y, a, b))
+            pygame.draw.rect(screen,(0,255,0), (x, y + b/2 - b/2 * k,a, b/2 * k))
+
 def play_boom(arr):
     for i in range(0,len(arr)):
         if arr[i].just_hit:
