@@ -132,11 +132,12 @@ class Gameplay:
         elif left_or_right == "right":
             x = 1600 - 15 - 300 - gap - a
         if self.same_orientation(player):
-            k = sqrt(player.Vx**2 + player.Vy**2) / sqrt(player.Vxmax**2 + player.Vymax**2)
+            k = sqrt(player.Vx**2 + player.Vy**2) / player.Vmax
+            print(player.Vx, player.Vy)
             pygame.draw.rect(screen, (255, 255, 255), (x, y, a, b))
             pygame.draw.rect(screen,(0,255,0), (x, y + b/2 - b/2 * k,a, b/2 * k))
         if not self.same_orientation(player):
-            k = sqrt(player.Vx**2 + player.Vy**2) / sqrt(player.Vxmax**2 + player.Vymax**2)
+            k = sqrt(player.Vx**2 + player.Vy**2) / player.Vmaxback
             pygame.draw.rect(screen, (255, 255, 255), (x, y, a, b))
             pygame.draw.rect(screen, (255, 0, 0), (x, y + b/2, a, b/2 * k))
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
