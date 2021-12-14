@@ -22,8 +22,8 @@ clock = pygame.time.Clock()
 finished = False
 
 # Это над для создания класса геймплея - не трогать и не смотреть
-Left_player = GameShipLeft(0, 0, 0,0,0,0,0,0,0,0,0,0,0, (0,0,0),10,10,0.01, 4, 10*60, 1,10*60)
-Right_player = GameShipRight(0,0,0,0,0,0,0,0,0,0,0,0,0, (0,0,0),10,10,0.01, 4, 20*60, 3,10*60)
+Left_player = GameShipLeft(0, 0, 0,0,0,0,0,0,0,0,0,0,0,0, (0,0,0),10,10,0.01, 4, 10*60, 1,10*60)
+Right_player = GameShipRight(0,0,0,0,0,0,0,0,0,0,0,0,0,0, (0,0,0),10,10,0.01, 4, 20*60, 3,10*60)
 
 # создание классов игровых экранов - меню и и геймплея
 gameplay_screen = Gameplay(Left_player, Right_player)

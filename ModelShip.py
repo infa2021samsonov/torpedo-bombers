@@ -19,7 +19,7 @@ TURNFORCE = [10, 20, 30]
 MASS = [1000, 2000, 3000]
 
 class GameShipLeft:
-    def __init__(self, name, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
+    def __init__(self, name, m, b, x, y, alpha, Vmax, Vmaxback, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
                  quantity_of_torpeds, recharge_time):
         self.name = 'IOWA'
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
@@ -35,7 +35,8 @@ class GameShipLeft:
         self.alpha = 0
         self.Vx = 0
         self.Vy = 0
-        self.Vmax = 70.7
+        self.Vmax = 10
+        self.Vmaxback = 5
         self.Vxmax = 50
         self.Vymax = 50
         self.a = 5
@@ -90,24 +91,32 @@ class GameShipLeft:
         screen.blit(self.new_image, (self.x - self.new_image.get_width()/2, self.y - self.new_image.get_height()/2))
         pass
 
+    def same_orientation(self):
+        x1 = -sin(self.alpha)
+        y1 = -cos(self.alpha)
+        x2 = self.Vx
+        y2 = self.Vy
+        return x1*x2 + y1*y2 <=0
+
     def Move(self, torp_arr):
         self.x = self.x - self.Vx * self.dt
         self.y = self.y - self.Vy * self.dt
-        if self.kw == True:
-            self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
-            self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
-        if self.ks == True:
-            self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
-            self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
+        if (self.same_orientation() == False) or ((self.same_orientation() == True) and (self.Vx**2 + self.Vy**2 < self.Vmax**2)):
+            if (self.Vx**2 + self.Vy**2 < self.Vmax**2):
+                if self.kw == True:
+                    self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
+                    self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
+        if (self.same_orientation() == True) or ((self.same_orientation() == False) and (self.Vx**2 + self.Vy**2 < self.Vmaxback**2)):
+            if self.ks == True:
+                self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
+                self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
 
 
         if ((self.ka == True) and ((self.Vx**2 + self.Vy**2) > 10)):
-
             self.alpha = self.alpha + self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(self.omega * self.dt)
             self.Vy =  - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
         if ((self.kd == True) and ((self.Vx**2 + self.Vy**2) > 10)):
-
             self.alpha = self.alpha - self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin( - self.omega * self.dt)
             self.Vy = - self.Vx * math.sin( - self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
@@ -159,7 +168,7 @@ class GameShipLeft:
 
 
 class GameShipRight:
-    def __init__(self, name, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
+    def __init__(self, name, m, b, x, y, alpha, Vmax, Vmaxback, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
                  quantity_of_torpeds, recharge_time):
         self.name = 'IOWA'
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
@@ -175,7 +184,8 @@ class GameShipRight:
         self.alpha = 0
         self.Vx = 0
         self.Vy = 0
-        self.Vmax = 70.7
+        self.Vmax = 10
+        self.Vmaxback = 5
         self.Vxmax = 50
         self.Vymax = 50
         self.a = 5
@@ -230,15 +240,25 @@ class GameShipRight:
         screen.blit(self.new_image, (self.x - self.new_image.get_width()/2, self.y - self.new_image.get_height()/2))
         pass
 
+    def same_orientation(self):
+        x1 = -sin(self.alpha)
+        y1 = -cos(self.alpha)
+        x2 = self.Vx
+        y2 = self.Vy
+        return x1*x2 + y1*y2 <=0
+
     def Move(self, torp_arr):
         self.x = self.x - self.Vx * self.dt
         self.y = self.y - self.Vy * self.dt
-        if self.ki == True:
-            self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
-            self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
-        if self.kk == True:
-            self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
-            self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
+        if (self.same_orientation() == False) or ((self.same_orientation() == True) and (self.Vx ** 2 + self.Vy ** 2 < self.Vmax ** 2)):
+            if (self.Vx ** 2 + self.Vy ** 2 < self.Vmax ** 2):
+                if self.ki == True:
+                    self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
+                    self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
+        if (self.same_orientation() == True) or ((self.same_orientation() == False) and (self.Vx ** 2 + self.Vy ** 2 < self.Vmaxback ** 2)):
+            if self.kk == True:
+                self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
+                self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
 
         if ((self.kj == True) and ((self.Vx ** 2 + self.Vy ** 2) > 10)):
             self.alpha = self.alpha + self.omega * self.dt
