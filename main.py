@@ -36,6 +36,8 @@ results = Game_res("jjsj", True)
 while not finished:
     # для отрисовки интерфейса
     if screen_type == 'menu':
+        gameplay_screen.reset()
+        pygame.mixer.music.unload()
         gameplay_screen.time = 0
         menu.display_menutext(screen)
         choseShipLeft.display_menu(screen, choseShipLeft.move_cursor())
@@ -47,8 +49,6 @@ while not finished:
         menu.reset_keys()
 
     if screen_type == 'gameplay':
-        choseShipLeft.set_ships(ModelShip.Ship, choseShipLeft.move_cursor())
-        choseShipRight.set_ships(ModelShip.Ship, choseShipRight.move_cursor())
         gameplay_screen.time -= 1
         gameplay_screen.leftPl.DrawShip(screen)
         gameplay_screen.drawSpeedIndicators(screen, gameplay_screen.leftPl, 'left')
@@ -107,13 +107,16 @@ while not finished:
                         gameplay_screen.time = 300 * FPS
                         choseShipLeft.set_ships(gameplay_screen.leftPl, choseShipLeft.move_cursor())
                         gameplay_screen.leftPl.torped_tubes.clear()
+                        gameplay_screen.leftPl.width = gameplay_screen.leftPl.new_image_0.get_width()
+                        gameplay_screen.leftPl.height = gameplay_screen.leftPl.new_image_0.get_height()
                         choseShipRight.set_ships(gameplay_screen.rightPl, choseShipRight.move_cursor())
+                        gameplay_screen.rightPl.width = gameplay_screen.rightPl.new_image_0.get_width()
+                        gameplay_screen.rightPl.height = gameplay_screen.rightPl.new_image_0.get_height()
                         gameplay_screen.rightPl.torped_tubes.clear()
                         for i in range(0, gameplay_screen.leftPl.quantity_of_torpeds):
                             gameplay_screen.leftPl.torped_tubes.append(300 * 60)
                         for i in range(0, gameplay_screen.  rightPl.quantity_of_torpeds):
                             gameplay_screen.rightPl.torped_tubes.append(300 * 60)
-                        print("hi")
                     if event.key == pygame.K_BACKSPACE:
                         menu.BACK_KEY = True
                     if event.key == pygame.K_s:
@@ -128,11 +131,6 @@ while not finished:
                     if event.key == pygame.K_i:
                         menu.UP_KEY2 = True
                         choseShipRight.move_cursor()
-
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_t:
-                    screen_type = 'gameplay'
-                    gameplay_screen.time = 300*FPS
-
             if screen_type == 'gameplay':
                 gameplay_screen.leftPl.keyinput(event)
                 gameplay_screen.rightPl.keyinput(event)
