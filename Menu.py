@@ -54,6 +54,10 @@ class Mainmenu():
                     self.UP_KEY2 = True
 
     def reset_keys(self):
+        '''
+        Функуия обнуляет нажаьие кнопок.
+        :return:
+        '''
         self.UP_KEY1, self.DOWN_KEY1, self.UP_KEY2, self.DOWN_KEY2, self.START_KEY1, = False, False, False, False, False
 
     def draw_text(self,screen, text, size, x, y, color):
@@ -132,6 +136,12 @@ class Choose_Ship_pl1():
             self.mainmenu.draw_text(screen, 'Yamato', 70, self.boatname3_1x, self.boatname3_1y, GOLD)
 
     def set_ships(self, Lpl, state):
+        '''
+        Функция передаёт данные о корабле(характеристики) который в меню выбрал левый игрок.
+        :param Lpl: отвечает за передачу данных именно о корабле левого игрока.
+        :param state: название выбранногоо игрока
+        :return:
+        '''
         global ship
         if state == 'Bismark':
             ship = ModelShip.Ship(name='Bismark', x=100, y=800, alpha=0, Vmax=7.5, Vx=0, Vy=0, a=5, omega=0.1,
@@ -164,7 +174,7 @@ class Choose_Ship_pl1():
 
     def display_ship1(self, screen, state):
         '''
-        Функция отображанет изображение корабля выбранного игроком 1
+        Функция отображанет изображение корабля выбранного левым игроком
 
         :param screen: экран....
         :param state: конкретный выбранный корабль
@@ -231,6 +241,12 @@ class Choose_Ship_pl2:
         return self.state
 
     def set_ships(self, Rpl, state):
+        '''
+        Функция передаёт данные о корабле(характеристики) который в меню выбрал правый игрок.
+        :param Lpl: отвечает за передачу данных именно о корабле правого игрока.
+        :param state: название выбранного корабля
+        :return:
+        '''
         global ship
         if state == 'Bismark':
             ship = ModelShip.Ship(name='Bismark', x=1500, y=800, alpha=0, Vmax=7.5, Vx=0, Vy=0, a=5, omega=0.1,
@@ -263,7 +279,8 @@ class Choose_Ship_pl2:
 
     def display_menu(self, screen, state):
         '''
-        Функция отображает название кораблей для игрока 2
+        Функция отображает названия кораблей для правого игрока
+        :param state: название выбранного корабля
         :return:
         '''
         if state == 'Bismark':
@@ -284,7 +301,7 @@ class Choose_Ship_pl2:
             Функция отображанет изображение корабля выбранного игроком 2
 
             :param screen: экран....
-            :param state: конкретный выбранный корабль
+            :param state: название выбранногоо корабля
             :return: картиночу отображает
         '''
         if state == 'Bismark':
