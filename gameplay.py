@@ -117,22 +117,30 @@ class Gameplay:
         x2 = player.Vx
         y2 = player.Vy
         return x1*x2 + y1*y2 <=0
+
     def drawSpeedIndicators(self, screen, player, left_or_right):
         x = 0
-        y = 0
-        a = 10
-        b = 20
+        y = 25
+        a = 30
+        b = 40
         k = 0
+        gap = -30
         if left_or_right == "left":
-            x = 100
-            y = 100
+            x = 315 + gap
         elif left_or_right == "right":
-            x = 500
-            y = 500
+            x = 1600 - 15 - 300 - gap - a
         if self.same_orientation(player):
             k = sqrt(player.Vx**2 + player.Vy**2) / sqrt(player.Vxmax**2 + player.Vymax**2)
-            pygame.draw.rect(screen, (160, 160, 160), (x, y, a, b))
+            pygame.draw.rect(screen, (255, 255, 255), (x, y, a, b))
             pygame.draw.rect(screen,(0,255,0), (x, y + b/2 - b/2 * k,a, b/2 * k))
+        if not self.same_orientation(player):
+            k = sqrt(player.Vx**2 + player.Vy**2) / sqrt(player.Vxmax**2 + player.Vymax**2)
+            pygame.draw.rect(screen, (255, 255, 255), (x, y, a, b))
+            pygame.draw.rect(screen, (255, 0, 0), (x, y + b/2, a, b/2 * k))
+        path = os.path.abspath(os.path.dirname(sys.argv[0]))
+        image = pygame.image.load(path + '/propeller.png').convert_alpha()
+        image = pygame.transform.scale(image, (int(image.get_width() * 0.06), int(image.get_height() * 0.06)))
+        screen.blit(image, (x, y+3))
 
 def play_boom(arr):
     for i in range(0,len(arr)):

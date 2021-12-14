@@ -52,6 +52,7 @@ while not finished:
         gameplay_screen.time -= 1
         gameplay_screen.leftPl.DrawShip(screen)
         gameplay_screen.drawSpeedIndicators(screen, gameplay_screen.leftPl, 'left')
+        gameplay_screen.drawSpeedIndicators(screen, gameplay_screen.rightPl, 'right')
         gameplay_screen.rightPl.DrawShip(screen)
         gameplay_screen.rightPl.Move(gameplay_screen.torpeds)
         gameplay_screen.leftPl.Move(gameplay_screen.torpeds)
