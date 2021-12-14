@@ -134,11 +134,14 @@ class Choose_Ship_pl1():
     def set_ships(self, Lpl, state):
         global ship
         if state == 'Bismark':
-            ship = ModelShip.Ship('Bismark', 1000, 0.01, 100, 800, 0, 70.7, 50, 50, 0, 0, 5, 0.1, 500 / 2, 100, 10, 500, 3, 500)
+            ship = ModelShip.Ship(name='Bismark', x=100, y=800, alpha=0, Vmax=7.5, Vx=0, Vy=0, a=5, omega=0.1,
+                                  recharge_time=8 * 60, quantity_of_torpeds=4, Vmaxback=2.5, maxXP=200)
         if state == 'IOWA':
-            ship = ModelShip.Ship('IOWA', 1000, 0.01, 100, 800, 0, 70.7, 50, 50, 0, 0, 5, 0.1, 500 / 2, 100, 10, 500, 3, 500)
+            ship = ModelShip.Ship(name='IOWA', x=100, y=800, alpha=0, Vmax=5, Vx=0, Vy=0, a=2.5, omega=0.1,
+                                  recharge_time=5 * 60, quantity_of_torpeds=3, Vmaxback=2.5, maxXP=300)
         if state == 'Yamato':
-            ship = ModelShip.Ship('Yamato', 1000, 0.01, 100, 800, 0, 70.7, 50, 50, 0, 0, 5, 0.1, 500 / 2, 100, 10, 500, 3, 500)
+            ship = ModelShip.Ship(name='Yamato', x=100, y=800, alpha=0, Vmax=5, Vx=0, Vy=0, a=3.5, omega=0.1,
+                                  recharge_time=10 * 60, quantity_of_torpeds=5, Vmaxback=2.5, maxXP=350)
 
         Lpl.name = ship.name
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
@@ -146,20 +149,14 @@ class Choose_Ship_pl1():
         Lpl.new_image_0 = pygame.transform.scale(Lpl.image, (int(Lpl.image.get_width() * 0.15), int(Lpl.image.get_height() * 0.15)))
         Lpl.weight = Lpl.new_image_0.get_width()
         Lpl.height = Lpl.new_image_0.get_height()
-        Lpl.m = ship.m
-        Lpl.b = ship.b
         Lpl.x = ship.x
         Lpl.y = ship.y
         Lpl.alpha = ship.alpha
         Lpl.Vmax = ship.Vmax
-        Lpl.Vxmax = ship.Vxmax
-        Lpl.Vymax = ship.Vymax
         Lpl.Vx = ship.Vx
         Lpl.Vy = ship.Vy
         Lpl.a = ship.a
         Lpl.omega = ship.omega
-        Lpl.F = ship.F
-        Lpl.TF = ship.TF
         Lpl.maxXP = ship.maxXP
         Lpl.quantity_of_torpeds = ship.quantity_of_torpeds
         Lpl.recharge_time = ship.recharge_time
@@ -236,11 +233,14 @@ class Choose_Ship_pl2:
     def set_ships(self, Rpl, state):
         global ship
         if state == 'Bismark':
-            ship = ModelShip.Ship('Bismark', 1000, 0.01, 1500, 800, 0, 70.7, 50, 50, 0, 0, 5, 0.1, 500 / 2, 100, 10, 500, 3, 500)
+            ship = ModelShip.Ship(name='Bismark', x=1500, y=800, alpha=0, Vmax=7.5, Vx=0, Vy=0, a=5, omega=0.1,
+                                  recharge_time=8 * 60, quantity_of_torpeds=4, Vmaxback=2.5, maxXP=200)
         if state == 'IOWA':
-            ship = ModelShip.Ship('IOWA', 1000, 0.01, 1500, 800, 0, 70.7, 50, 50, 0, 0, 5, 0.1, 500 / 2, 100, 10, 500, 3, 500)
+            ship = ModelShip.Ship(name='IOWA', x=1500, y=800, alpha=0, Vmax=5, Vx=0, Vy=0, a=2.5, omega=0.1,
+                                  recharge_time=5 * 60, quantity_of_torpeds=3, Vmaxback=2.5, maxXP=300)
         if state == 'Yamato':
-            ship = ModelShip.Ship('Yamato', 1000, 0.01, 1500, 800, 0, 70.7, 50, 50, 0, 0, 5, 0.1, 500 / 2, 100, 10, 500, 3, 500)
+            ship = ModelShip.Ship(name='Yamato', x=1500, y=800, alpha=0, Vmax=5, Vx=0, Vy=0, a=3.5, omega=0.1,
+                                  recharge_time=10 * 60, quantity_of_torpeds=5, Vmaxback=2.5, maxXP=350)
 
         Rpl.name = ship.name
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
@@ -248,20 +248,14 @@ class Choose_Ship_pl2:
         Rpl.new_image_0 = pygame.transform.scale(Rpl.image, (int(Rpl.image.get_width() * 0.15), int(Rpl.image.get_height() * 0.15)))
         Rpl.height = Rpl.new_image_0.get_height()
         Rpl.weight = Rpl.new_image_0.get_width()
-        Rpl.m = ship.m
-        Rpl.b = ship.b
         Rpl.x = ship.x
         Rpl.y = ship.y
         Rpl.alpha = ship.alpha
         Rpl.Vmax = ship.Vmax
-        Rpl.Vxmax = ship.Vxmax
-        Rpl.Vymax = ship.Vymax
         Rpl.Vx = ship.Vx
         Rpl.Vy = ship.Vy
         Rpl.a = ship.a
         Rpl.omega = ship.omega
-        Rpl.F = ship.F
-        Rpl.TF = ship.TF
         Rpl.maxXP = ship.maxXP
         Rpl.quantity_of_torpeds = ship.quantity_of_torpeds
         Rpl.recharge_time = ship.recharge_time

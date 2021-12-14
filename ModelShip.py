@@ -18,13 +18,16 @@ FORCE = [100, 200, 300]
 TURNFORCE = [10, 20, 30]
 MASS = [1000, 2000, 3000]
 
+
 class GameShipLeft:
-    def __init__(self, name, m, b, x, y, alpha, Vmax, Vmaxback, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
+    def __init__(self, name, m, b, x, y, alpha, Vmax, Vmaxback, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF,
+                 dt, maxXP,
                  quantity_of_torpeds, recharge_time):
         self.name = 'IOWA'
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
-        self.image = pygame.image.load(path + '/'+self.name + '_top-removebg-preview.png').convert_alpha()
-        self.new_image_0 = pygame.transform.scale(self.image, (int(self.image.get_width() * 0.15), int(self.image.get_height() * 0.15)))
+        self.image = pygame.image.load(path + '/' + self.name + '_top-removebg-preview.png').convert_alpha()
+        self.new_image_0 = pygame.transform.scale(self.image, (
+        int(self.image.get_width() * 0.15), int(self.image.get_height() * 0.15)))
         self.height = self.new_image_0.get_height()
         self.width = self.new_image_0.get_width()
         self.maxXP = maxXP
@@ -35,7 +38,7 @@ class GameShipLeft:
         self.alpha = 0
         self.Vx = 0
         self.Vy = 0
-        self.Vmax = 10
+        self.Vmax = 5
         self.Vmaxback = 5
         self.Vxmax = 50
         self.Vymax = 50
@@ -87,8 +90,8 @@ class GameShipLeft:
                 self.klshift = False
 
     def DrawShip(self, screen):
-        self.new_image = pygame.transform.rotate(self.new_image_0, (self.alpha + pi/2) * 360 * (2 * math.pi) ** -1)
-        screen.blit(self.new_image, (self.x - self.new_image.get_width()/2, self.y - self.new_image.get_height()/2))
+        self.new_image = pygame.transform.rotate(self.new_image_0, (self.alpha + pi / 2) * 360 * (2 * math.pi) ** -1)
+        screen.blit(self.new_image, (self.x - self.new_image.get_width() / 2, self.y - self.new_image.get_height() / 2))
         pass
 
     def same_orientation(self):
@@ -96,30 +99,31 @@ class GameShipLeft:
         y1 = -cos(self.alpha)
         x2 = self.Vx
         y2 = self.Vy
-        return x1*x2 + y1*y2 <=0
+        return x1 * x2 + y1 * y2 <= 0
 
     def Move(self, torp_arr):
         self.x = self.x - self.Vx * self.dt
         self.y = self.y - self.Vy * self.dt
-        if (self.same_orientation() == False) or ((self.same_orientation() == True) and (self.Vx**2 + self.Vy**2 < self.Vmax**2)):
-            if (self.Vx**2 + self.Vy**2 < self.Vmax**2):
-                if self.kw == True:
-                    self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
-                    self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
-        if (self.same_orientation() == True) or ((self.same_orientation() == False) and (self.Vx**2 + self.Vy**2 < self.Vmaxback**2)):
+        print(self.Vx ** 2 + self.Vy ** 2)
+        if (self.same_orientation() == False) or (
+                (self.same_orientation() == True) and (self.Vx ** 2 + self.Vy ** 2 < self.Vmax ** 2)):
+            if self.kw == True:
+                self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
+                self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
+        if (self.same_orientation() == True) or (
+                (self.same_orientation() == False) and (self.Vx ** 2 + self.Vy ** 2 < self.Vmaxback ** 2)):
             if self.ks == True:
                 self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
                 self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
 
-
-        if ((self.ka == True) and ((self.Vx**2 + self.Vy**2) > 10)):
+        if ((self.ka == True) and ((self.Vx ** 2 + self.Vy ** 2) > 10)):
             self.alpha = self.alpha + self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(self.omega * self.dt)
-            self.Vy =  - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
-        if ((self.kd == True) and ((self.Vx**2 + self.Vy**2) > 10)):
+            self.Vy = - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
+        if ((self.kd == True) and ((self.Vx ** 2 + self.Vy ** 2) > 10)):
             self.alpha = self.alpha - self.omega * self.dt
-            self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin( - self.omega * self.dt)
-            self.Vy = - self.Vx * math.sin( - self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
+            self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(- self.omega * self.dt)
+            self.Vy = - self.Vx * math.sin(- self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
         if self.klshift == True:
             self.klshift = False
 
@@ -168,12 +172,14 @@ class GameShipLeft:
 
 
 class GameShipRight:
-    def __init__(self, name, m, b, x, y, alpha, Vmax, Vmaxback, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF, dt, maxXP,
+    def __init__(self, name, m, b, x, y, alpha, Vmax, Vmaxback, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, color, F, TF,
+                 dt, maxXP,
                  quantity_of_torpeds, recharge_time):
         self.name = 'IOWA'
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
-        self.image = pygame.image.load(path + '/'+self.name + '_top-removebg-preview.png').convert_alpha()
-        self.new_image_0 = pygame.transform.scale(self.image, (int(self.image.get_width() * 0.15), int(self.image.get_height() * 0.15)))
+        self.image = pygame.image.load(path + '/' + self.name + '_top-removebg-preview.png').convert_alpha()
+        self.new_image_0 = pygame.transform.scale(self.image, (
+        int(self.image.get_width() * 0.15), int(self.image.get_height() * 0.15)))
         self.height = self.new_image_0.get_height()
         self.width = self.new_image_0.get_width()
         self.maxXP = maxXP
@@ -184,7 +190,7 @@ class GameShipRight:
         self.alpha = 0
         self.Vx = 0
         self.Vy = 0
-        self.Vmax = 10
+        self.Vmax = 5
         self.Vmaxback = 5
         self.Vxmax = 50
         self.Vymax = 50
@@ -236,8 +242,8 @@ class GameShipRight:
                 self.krshift = False
 
     def DrawShip(self, screen):
-        self.new_image = pygame.transform.rotate(self.new_image_0, (self.alpha + pi/2) * 360 * (2 * math.pi) ** -1)
-        screen.blit(self.new_image, (self.x - self.new_image.get_width()/2, self.y - self.new_image.get_height()/2))
+        self.new_image = pygame.transform.rotate(self.new_image_0, (self.alpha + pi / 2) * 360 * (2 * math.pi) ** -1)
+        screen.blit(self.new_image, (self.x - self.new_image.get_width() / 2, self.y - self.new_image.get_height() / 2))
         pass
 
     def same_orientation(self):
@@ -245,17 +251,18 @@ class GameShipRight:
         y1 = -cos(self.alpha)
         x2 = self.Vx
         y2 = self.Vy
-        return x1*x2 + y1*y2 <=0
+        return x1 * x2 + y1 * y2 <= 0
 
     def Move(self, torp_arr):
         self.x = self.x - self.Vx * self.dt
         self.y = self.y - self.Vy * self.dt
-        if (self.same_orientation() == False) or ((self.same_orientation() == True) and (self.Vx ** 2 + self.Vy ** 2 < self.Vmax ** 2)):
-            if (self.Vx ** 2 + self.Vy ** 2 < self.Vmax ** 2):
-                if self.ki == True:
-                    self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
-                    self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
-        if (self.same_orientation() == True) or ((self.same_orientation() == False) and (self.Vx ** 2 + self.Vy ** 2 < self.Vmaxback ** 2)):
+        if (self.same_orientation() == False) or (
+                (self.same_orientation() == True) and (self.Vx ** 2 + self.Vy ** 2 < self.Vmax ** 2)):
+            if self.ki == True:
+                self.Vx = self.Vx + self.a * math.sin(self.alpha) * self.dt
+                self.Vy = self.Vy + self.a * math.cos(self.alpha) * self.dt
+        if (self.same_orientation() == True) or (
+                (self.same_orientation() == False) and (self.Vx ** 2 + self.Vy ** 2 < self.Vmaxback ** 2)):
             if self.kk == True:
                 self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
                 self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
@@ -281,10 +288,10 @@ class GameShipRight:
                 all_tubes_empty = False
                 self.torped_tubes[i] = now_t
                 break
-        if not(all_tubes_empty):
+        if not (all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x + h*math.cos(self.alpha), self.y - h*math.sin(self.alpha), self.alpha, 20)
+            torp = Torped(self.x + h * math.cos(self.alpha), self.y - h * math.sin(self.alpha), self.alpha, 20)
             torp_arr.append(torp)
 
     def collision(self, torpedo):
@@ -315,29 +322,18 @@ class GameShipRight:
         return ans
 
 
-
 class Ship():
-    def __init__(self, name, m, b, x, y, alpha, Vmax, Vxmax, Vymax, Vx, Vy, a, omega, gameXP, F, TF, maxXP,
-                 quantity_of_torpeds, recharge_time):
+    def __init__(self, name, x, y, alpha, Vmax, Vmaxback, Vx, Vy, a, omega, maxXP, quantity_of_torpeds, recharge_time):
         self.name = name
-        self.maxXP = maxXP
-        self.m = m
-        self.b = b
         self.x = x
         self.y = y
+        self.maxXP = maxXP
         self.alpha = alpha
         self.Vx = Vx
         self.Vy = Vy
         self.Vmax = Vmax
-        self.Vxmax = Vxmax
-        self.Vymax = Vymax
+        self.Vmaxback = Vmaxback
         self.a = a
         self.omega = omega
-        self.gameXP = gameXP
-        self.F = F
-        self.TF = TF
         self.quantity_of_torpeds = quantity_of_torpeds
         self.recharge_time = recharge_time
-
-
-
