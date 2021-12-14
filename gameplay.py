@@ -51,17 +51,19 @@ class Gameplay:
 
                 if self.leftPl.collision(self.torpeds[i]):
                     #строка для уменьшения ХP
+                    self.leftPl.gameXP -= self.leftPl.maxXP*0.2
                     self.torpeds[i].hit = True
                     self.torpeds[i].just_hit = True
                     self.torpeds[i].hit_time = self.time
-                    print("попало в левого")
+                    print(self.rightPl.gameXP)
 
                 if self.rightPl.collision(self.torpeds[i]):
                     #строка для уменьшения ХP
+                    self.rightPl.gameXP -= self.rightPl.maxXP*0.2
                     self.torpeds[i].hit = True
                     self.torpeds[i].just_hit = True
                     self.torpeds[i].hit_time = self.time
-                    print("попало в правого")
+                    print(self.rightPl.gameXP)
 
     def drawTorpedIndicators(self, screen, player, left_or_right):
         x = 0

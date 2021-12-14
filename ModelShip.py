@@ -127,7 +127,7 @@ class GameShipLeft:
         if not (all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x + h * math.cos(self.alpha), self.y - h * math.sin(self.alpha), self.alpha, 10)
+            torp = Torped(self.x + h * math.cos(self.alpha), self.y - h * math.sin(self.alpha), self.alpha, 20)
             torp_arr.append(torp)
 
     def collision(self, torpedo):
@@ -264,7 +264,7 @@ class GameShipRight:
         if not(all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x + h*math.cos(self.alpha), self.y - h*math.sin(self.alpha), self.alpha, 10)
+            torp = Torped(self.x + h*math.cos(self.alpha), self.y - h*math.sin(self.alpha), self.alpha, 20)
             torp_arr.append(torp)
 
     def collision(self, torpedo):

@@ -64,17 +64,17 @@ while not finished:
         gameplay_screen.drawXP(screen, gameplay_screen.leftPl, 'left')
         gameplay_screen.drawXP(screen, gameplay_screen.rightPl, 'right')
         play_boom(gameplay_screen.torpeds)
-        if gameplay_screen.leftPl.gameXP < 0:
+        if gameplay_screen.leftPl.gameXP <= 2:
             screen_type = 'results'
             results.win_game = True
             results.winner_name = gameplay_screen.leftPl.name
             gameplay_screen.time = 0
             play_win_music()
 
-        if gameplay_screen.rightPl.gameXP < 0:
+        if gameplay_screen.rightPl.gameXP <= 2:
             screen_type = 'results'
             results.win_game = True
-            results.winner_name = gameplay_screen.rightPl
+            results.winner_name = gameplay_screen.rightPl.name
             gameplay_screen.time = 0
             play_win_music()
 

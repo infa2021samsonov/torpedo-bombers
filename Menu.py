@@ -96,7 +96,6 @@ class Choose_Ship_pl1():
         self.cursor_rect = pygame.Rect(0, 0, 20, 20)
         self.state = 'Bismark'
 
-
     def move_cursor(self):
         '''
             Функция выделяет название выбранного корабля
@@ -117,7 +116,6 @@ class Choose_Ship_pl1():
             elif self.state == 'Yamato':
                 self.state = 'Bismark'
         return self.state
-
 
     def display_menu(self, screen, state):
         if state == 'Bismark':
@@ -165,6 +163,7 @@ class Choose_Ship_pl1():
         Lpl.maxXP = ship.maxXP
         Lpl.quantity_of_torpeds = ship.quantity_of_torpeds
         Lpl.recharge_time = ship.recharge_time
+        Lpl.gameXP = Lpl.maxXP
 
     def display_ship1(self, screen, state):
         '''
@@ -212,8 +211,6 @@ class Choose_Ship_pl2:
         self.cursor_rect = pygame.Rect(0, 0, 20, 20)
         self.state = 'Bismark'
         self.WHITE, self.BLACK, self.CYAN = WHITE, BLACK, CYAN
-
-
 
     def move_cursor(self):
         '''
@@ -268,6 +265,7 @@ class Choose_Ship_pl2:
         Rpl.maxXP = ship.maxXP
         Rpl.quantity_of_torpeds = ship.quantity_of_torpeds
         Rpl.recharge_time = ship.recharge_time
+        Rpl.gameXP = Rpl.maxXP
 
     def display_menu(self, screen, state):
         '''
