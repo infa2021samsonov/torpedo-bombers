@@ -146,6 +146,8 @@ class Choose_Ship_pl1():
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
         Lpl.image = pygame.image.load(path + '/' + Lpl.name + '_top-removebg-preview.png').convert_alpha()
         Lpl.new_image_0 = pygame.transform.scale(Lpl.image, (int(Lpl.image.get_width() * 0.15), int(Lpl.image.get_height() * 0.15)))
+        Lpl.weight = Lpl.new_image_0.get_width()
+        Lpl.weight = Lpl.new_image_0.get_height()
         Lpl.m = ship.m
         Lpl.b = ship.b
         Lpl.x = ship.x
@@ -247,6 +249,8 @@ class Choose_Ship_pl2:
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
         Rpl.image = pygame.image.load(path + '/' + Rpl.name + '_top-removebg-preview.png').convert_alpha()
         Rpl.new_image_0 = pygame.transform.scale(Rpl.image, (int(Rpl.image.get_width() * 0.15), int(Rpl.image.get_height() * 0.15)))
+        Rpl.height = Rpl.new_image_0.get_height()
+        Rpl.weight = Rpl.new_image_0.get_width()
         Rpl.m = ship.m
         Rpl.b = ship.b
         Rpl.x = ship.x
