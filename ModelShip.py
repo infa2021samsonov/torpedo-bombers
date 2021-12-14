@@ -63,6 +63,9 @@ class GameShipLeft:
             self.torped_tubes.append(300 * 60)
         # это сделано Сомом для отображения
 
+    '''
+    Функция присваивает клавишам начальные состояния.
+    '''
     def keyinput(self, event):
         if event.type == pygame.KEYDOWN:
 
@@ -89,11 +92,17 @@ class GameShipLeft:
             if event.key == pygame.K_LSHIFT:
                 self.klshift = False
 
+    '''
+        Функция рисует корабль.
+    '''
     def DrawShip(self, screen):
         self.new_image = pygame.transform.rotate(self.new_image_0, (self.alpha + pi / 2) * 360 * (2 * math.pi) ** -1)
         screen.blit(self.new_image, (self.x - self.new_image.get_width() / 2, self.y - self.new_image.get_height() / 2))
         pass
 
+    '''
+        Функция определяет напрвление движения корабля.
+    '''
     def same_orientation(self):
         x1 = -sin(self.alpha)
         y1 = -cos(self.alpha)
@@ -101,6 +110,9 @@ class GameShipLeft:
         y2 = self.Vy
         return x1 * x2 + y1 * y2 <= 0
 
+    '''
+        Функция движения и поворота.
+    '''
     def Move(self, torp_arr):
         self.x = self.x - self.Vx * self.dt
         self.y = self.y - self.Vy * self.dt
@@ -116,18 +128,21 @@ class GameShipLeft:
                 self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
 
         if (self.ka == True):
-            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2)/self.Vmax)*0.1
+            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2)/self.Vmax)*0.1*((-1)**(self.same_orientation()+1))
             self.alpha = self.alpha + self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(self.omega * self.dt)
             self.Vy = - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
         if (self.kd == True):
-            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.1
+            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.1*((-1)**(self.same_orientation()+1))
             self.alpha = self.alpha - self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(- self.omega * self.dt)
             self.Vy = - self.Vx * math.sin(- self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
         if self.klshift == True:
             self.klshift = False
 
+    '''
+        Функция запуска торпед.
+    '''
     def fire_torped(self, torp_arr, now_t):
         h = 40
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
@@ -144,6 +159,9 @@ class GameShipLeft:
             torp = Torped(self.x + h * math.cos(self.alpha), self.y - h * math.sin(self.alpha), self.alpha, 20)
             torp_arr.append(torp)
 
+    '''
+        Критерий попадания торпеды.
+    '''
     def collision(self, torpedo):
         h = self.height / 2
 
@@ -269,12 +287,12 @@ class GameShipRight:
                 self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
 
         if (self.kj == True):
-            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.1
+            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.1*((-1)**(self.same_orientation()+1))
             self.alpha = self.alpha + self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(self.omega * self.dt)
             self.Vy = - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
         if (self.kl == True):
-            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.1
+            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.1*((-1)**(self.same_orientation()+1))
             self.alpha = self.alpha - self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(- self.omega * self.dt)
             self.Vy = - self.Vx * math.sin(- self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
