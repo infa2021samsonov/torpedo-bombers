@@ -144,13 +144,13 @@ class Choose_Ship_pl1():
         '''
         global ship
         if state == 'Bismark':
-            ship = ModelShip.Ship(name='Bismark', x=100, y=800, alpha=0, Vmax=7.5, Vx=0, Vy=0, a=5, omega=0.1,
+            ship = ModelShip.Ship(name='Bismark', x=100, y=800, alpha=0, Vmax=10, Vx=0, Vy=0, a=2.5, omega=0.1,
                                   recharge_time=8 * 60, quantity_of_torpeds=4, Vmaxback=2.5, maxXP=200)
         if state == 'IOWA':
-            ship = ModelShip.Ship(name='IOWA', x=100, y=800, alpha=0, Vmax=5, Vx=0, Vy=0, a=2.5, omega=0.1,
+            ship = ModelShip.Ship(name='IOWA', x=100, y=800, alpha=0, Vmax=8, Vx=0, Vy=0, a=1.25, omega=0.1,
                                   recharge_time=5 * 60, quantity_of_torpeds=3, Vmaxback=2.5, maxXP=300)
         if state == 'Yamato':
-            ship = ModelShip.Ship(name='Yamato', x=100, y=800, alpha=0, Vmax=5, Vx=0, Vy=0, a=3.5, omega=0.1,
+            ship = ModelShip.Ship(name='Yamato', x=100, y=800, alpha=0, Vmax=8, Vx=0, Vy=0, a=1.75, omega=0.1,
                                   recharge_time=10 * 60, quantity_of_torpeds=5, Vmaxback=2.5, maxXP=350)
 
         Lpl.name = ship.name
@@ -249,13 +249,13 @@ class Choose_Ship_pl2:
         '''
         global ship
         if state == 'Bismark':
-            ship = ModelShip.Ship(name='Bismark', x=1500, y=800, alpha=0, Vmax=7.5, Vx=0, Vy=0, a=5, omega=0.1,
+            ship = ModelShip.Ship(name='Bismark', x=1500, y=800, alpha=0, Vmax=10, Vx=0, Vy=0, a=2.5, omega=0.1,
                                   recharge_time=8 * 60, quantity_of_torpeds=4, Vmaxback=2.5, maxXP=200)
         if state == 'IOWA':
-            ship = ModelShip.Ship(name='IOWA', x=1500, y=800, alpha=0, Vmax=5, Vx=0, Vy=0, a=2.5, omega=0.1,
+            ship = ModelShip.Ship(name='IOWA', x=1500, y=800, alpha=0, Vmax=8, Vx=0, Vy=0, a=1.25, omega=0.1,
                                   recharge_time=5 * 60, quantity_of_torpeds=3, Vmaxback=2.5, maxXP=300)
         if state == 'Yamato':
-            ship = ModelShip.Ship(name='Yamato', x=1500, y=800, alpha=0, Vmax=5, Vx=0, Vy=0, a=3.5, omega=0.1,
+            ship = ModelShip.Ship(name='Yamato', x=1500, y=800, alpha=0, Vmax=8, Vx=0, Vy=0, a=1.75, omega=0.1,
                                   recharge_time=10 * 60, quantity_of_torpeds=5, Vmaxback=2.5, maxXP=350)
 
         Rpl.name = ship.name

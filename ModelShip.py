@@ -104,7 +104,6 @@ class GameShipLeft:
     def Move(self, torp_arr):
         self.x = self.x - self.Vx * self.dt
         self.y = self.y - self.Vy * self.dt
-        print(self.Vx ** 2 + self.Vy ** 2)
         if (self.same_orientation() == False) or (
                 (self.same_orientation() == True) and (self.Vx ** 2 + self.Vy ** 2 < self.Vmax ** 2)):
             if self.kw == True:
@@ -116,11 +115,13 @@ class GameShipLeft:
                 self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
                 self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
 
-        if ((self.ka == True) and ((self.Vx ** 2 + self.Vy ** 2) > 10)):
+        if (self.ka == True):
+            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2)/self.Vmax)*0.1
             self.alpha = self.alpha + self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(self.omega * self.dt)
             self.Vy = - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
-        if ((self.kd == True) and ((self.Vx ** 2 + self.Vy ** 2) > 10)):
+        if (self.kd == True):
+            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.1
             self.alpha = self.alpha - self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(- self.omega * self.dt)
             self.Vy = - self.Vx * math.sin(- self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
@@ -267,11 +268,13 @@ class GameShipRight:
                 self.Vx = self.Vx - self.a * math.sin(self.alpha) * self.dt
                 self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
 
-        if ((self.kj == True) and ((self.Vx ** 2 + self.Vy ** 2) > 10)):
+        if (self.kj == True):
+            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.1
             self.alpha = self.alpha + self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(self.omega * self.dt)
             self.Vy = - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
-        if ((self.kl == True) and ((self.Vx ** 2 + self.Vy ** 2) > 10)):
+        if (self.kl == True):
+            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.1
             self.alpha = self.alpha - self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(- self.omega * self.dt)
             self.Vy = - self.Vx * math.sin(- self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
