@@ -143,7 +143,7 @@ class GameShipLeft:
     '''
         Функция запуска торпед.
     '''
-    def fire_torped(self, torp_arr, now_t):
+    def fire_torped(self, torp_arr, now_t, k):
         h = 40
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
 
@@ -156,7 +156,7 @@ class GameShipLeft:
         if not (all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x + h * math.cos(self.alpha), self.y - h * math.sin(self.alpha), self.alpha, 20)
+            torp = Torped(self.x + h * k * math.cos(self.alpha), self.y - h * k * math.sin(self.alpha), self.alpha + pi * (k<0), 20)
             torp_arr.append(torp)
 
     '''
@@ -299,7 +299,7 @@ class GameShipRight:
         if self.krshift == True:
             self.krshift = False
 
-    def fire_torped(self, torp_arr, now_t):
+    def fire_torped(self, torp_arr, now_t, k):
         h = 40
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
 
@@ -312,7 +312,7 @@ class GameShipRight:
         if not (all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x + h * math.cos(self.alpha), self.y - h * math.sin(self.alpha), self.alpha, 20)
+            torp = Torped(self.x + h * k * math.cos(self.alpha), self.y - h * k * math.sin(self.alpha), self.alpha + pi * (k<0), 20)
             torp_arr.append(torp)
 
     def collision(self, torpedo):
