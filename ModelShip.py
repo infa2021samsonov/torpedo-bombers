@@ -116,22 +116,21 @@ class GameShipLeft:
                 self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
 
         if (self.ka == True):
-            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2)/self.Vmax)*0.1
+            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2)/self.Vmax)*0.05
             self.alpha = self.alpha + self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(self.omega * self.dt)
             self.Vy = - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
         if (self.kd == True):
-            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.1
+            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.05
             self.alpha = self.alpha - self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(- self.omega * self.dt)
             self.Vy = - self.Vx * math.sin(- self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
         if self.klshift == True:
             self.klshift = False
 
-    def fire_torped(self, torp_arr, now_t):
+    def fire_torped(self, torp_arr, now_t, k):
         h = 40
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
-
         all_tubes_empty = True
         for i in range(0, len(self.torped_tubes)):
             if self.torped_tubes[i] - now_t >= self.recharge_time:
@@ -141,7 +140,7 @@ class GameShipLeft:
         if not (all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x + h * math.cos(self.alpha), self.y - h * math.sin(self.alpha), self.alpha, 20)
+            torp = Torped(self.x + k * h * math.cos(self.alpha), self.y - k * h * math.sin(self.alpha), self.alpha + pi * (k < 0), 20)
             torp_arr.append(torp)
 
     def collision(self, torpedo):
@@ -269,19 +268,19 @@ class GameShipRight:
                 self.Vy = self.Vy - self.a * math.cos(self.alpha) * self.dt
 
         if (self.kj == True):
-            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.1
+            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.05
             self.alpha = self.alpha + self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(self.omega * self.dt)
             self.Vy = - self.Vx * math.sin(self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
         if (self.kl == True):
-            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.1
+            self.omega = math.sqrt(math.sqrt(self.Vx ** 2 + self.Vy ** 2) / self.Vmax) * 0.05
             self.alpha = self.alpha - self.omega * self.dt
             self.Vx = self.Vx * math.cos(self.omega * self.dt) + self.Vy * math.sin(- self.omega * self.dt)
             self.Vy = - self.Vx * math.sin(- self.omega * self.dt) + self.Vy * math.cos(self.omega * self.dt)
         if self.krshift == True:
             self.krshift = False
 
-    def fire_torped(self, torp_arr, now_t):
+    def fire_torped(self, torp_arr, now_t, k):
         h = 40
         path = os.path.abspath(os.path.dirname(sys.argv[0]))
 
@@ -294,7 +293,7 @@ class GameShipRight:
         if not (all_tubes_empty):
             pygame.mixer.music.load(path + "/fire.mp3")
             pygame.mixer.music.play()
-            torp = Torped(self.x + h * math.cos(self.alpha), self.y - h * math.sin(self.alpha), self.alpha, 20)
+            torp = Torped(self.x + k * h * math.cos(self.alpha), self.y - k * h * math.sin(self.alpha), self.alpha + pi * (k < 0), 20)
             torp_arr.append(torp)
 
     def collision(self, torpedo):

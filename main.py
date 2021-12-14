@@ -67,14 +67,14 @@ while not finished:
         if gameplay_screen.leftPl.gameXP <= 2:
             screen_type = 'results'
             results.win_game = True
-            results.winner_name = gameplay_screen.leftPl.name
+            results.winner_name = "RIGHT " + str(gameplay_screen.rightPl.name)
             gameplay_screen.time = 0
             play_win_music()
 
         if gameplay_screen.rightPl.gameXP <= 2:
             screen_type = 'results'
             results.win_game = True
-            results.winner_name = gameplay_screen.rightPl.name
+            results.winner_name = "LEFT " + str(gameplay_screen.leftPl.name)
             gameplay_screen.time = 0
             play_win_music()
 
@@ -134,9 +134,13 @@ while not finished:
             if screen_type == 'gameplay':
                 gameplay_screen.leftPl.keyinput(event)
                 gameplay_screen.rightPl.keyinput(event)
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
-                    gameplay_screen.leftPl.fire_torped(gameplay_screen.torpeds,gameplay_screen.time)
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_RSHIFT:
-                    gameplay_screen.rightPl.fire_torped(gameplay_screen.torpeds,gameplay_screen.time)
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_x:
+                    gameplay_screen.leftPl.fire_torped(gameplay_screen.torpeds,gameplay_screen.time, 1)
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_z:
+                    gameplay_screen.leftPl.fire_torped(gameplay_screen.torpeds,gameplay_screen.time, -1)
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_PERIOD:
+                    gameplay_screen.rightPl.fire_torped(gameplay_screen.torpeds, gameplay_screen.time, 1)
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_COMMA:
+                    gameplay_screen.rightPl.fire_torped(gameplay_screen.torpeds, gameplay_screen.time, -1)
 
 pygame.quit()
