@@ -122,13 +122,13 @@ while not finished:
                     if event.key == pygame.K_s:
                         menu.DOWN_KEY1 = True
                         choseShipLeft.move_cursor()
-                    if event.key == pygame.K_k:
+                    if event.key == pygame.K_DOWN:
                         menu.DOWN_KEY2 = True
                         choseShipLeft.move_cursor()
                     if event.key == pygame.K_w:
                         menu.UP_KEY1 = True
                         choseShipLeft.move_cursor()
-                    if event.key == pygame.K_i:
+                    if event.key == pygame.K_UP:
                         menu.UP_KEY2 = True
                         choseShipRight.move_cursor()
             if screen_type == 'gameplay':
