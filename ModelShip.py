@@ -237,25 +237,25 @@ class GameShipRight:
     def keyinput(self, event):
         if event.type == pygame.KEYDOWN:
 
-            if event.key == pygame.K_i:
+            if event.key == pygame.K_UP:
                 self.ki = True
-            if event.key == pygame.K_k:
+            if event.key == pygame.K_DOWN:
                 self.kk = True
-            if event.key == pygame.K_j:
+            if event.key == pygame.K_LEFT:
                 self.kj = True
-            if event.key == pygame.K_l:
+            if event.key == pygame.K_RIGHT:
                 self.kl = True
             if event.key == pygame.K_RSHIFT:
                 self.krshift = True
 
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_i:
+            if event.key == pygame.K_UP:
                 self.ki = False
-            if event.key == pygame.K_k:
+            if event.key == pygame.K_DOWN:
                 self.kk = False
-            if event.key == pygame.K_j:
+            if event.key == pygame.K_LEFT:
                 self.kj = False
-            if event.key == pygame.K_l:
+            if event.key == pygame.K_RIGHT:
                 self.kl = False
             if event.key == pygame.K_RSHIFT:
                 self.krshift = False

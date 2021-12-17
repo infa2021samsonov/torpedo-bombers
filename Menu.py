@@ -80,7 +80,6 @@ class Mainmenu():
         self.draw_text(screen, 'PLAYER 1', 30, self.player1x, self.player1y, RED)
         self.draw_text(screen, 'PLAYER 2', 30, self.player2x, self.player2y, GREEN)
         self.draw_text(screen, 'PRESS ''ENTER'' TO START THE GAME', 50, self.startx, self.starty, WHITE)
-
     def setShips(self, state):
 
         pass
